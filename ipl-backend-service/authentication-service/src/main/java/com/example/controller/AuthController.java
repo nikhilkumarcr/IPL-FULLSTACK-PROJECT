@@ -1,8 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.JwtResponse;
+import com.example.dto.LoginResponse;
 import com.example.dto.LoginRequest;
-import com.example.dto.MessageResponse;
 import com.example.dto.SignupRequest;
 import com.example.entity.Role;
 import com.example.entity.Role_Type;
@@ -78,7 +77,7 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
+        return ResponseEntity.ok(new LoginResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
@@ -91,13 +90,13 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body("Error: Username is already taken!");
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+                    .body("Error: Email is already in use!");
         }
 
         User user = new User(signUpRequest.getUsername(),
@@ -131,7 +130,7 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok("User registered successfully!");
     }
 
 }
