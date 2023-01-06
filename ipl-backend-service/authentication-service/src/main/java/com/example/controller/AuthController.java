@@ -99,6 +99,8 @@ public class AuthController {
                     .body("Error: Email is already in use!");
         }
 
+        //OwnerDetails ownerDetails = new OwnerDetails();
+
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));

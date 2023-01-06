@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.OwnerDetails;
 import com.example.dto.TeamRequest;
 import com.example.dto.TeamResponse;
 import com.example.entity.Team;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class TeamController {
 
     private final TeamService teamService;
+    private final RestTemplate restTemplate;
 
     @GetMapping("/view-teams")
     public ResponseEntity<?>  viewTeams(){
@@ -38,6 +41,14 @@ public class TeamController {
         team.setEmailId(teamRequest.getEmailId());
         team.setTempPassword("123456");
         team = teamService.addTeam(team);
+
+        OwnerDetails ownerDetails = new OwnerDetails();
+        ownerDetails.setUsername(team.getOwnerName());
+        ownerDetails.setEmail(team.getEmailId());
+        ownerDetails.setPassword(team.getTempPassword());
+
+     //   restTemplate.postForObject("http://localhost:7002/api/auth/sign-up",ownerDetails,OwnerDetails.class);
+
         return  ResponseEntity.status(HttpStatus.CREATED).body("Added");
     }
 
@@ -59,6 +70,21 @@ public class TeamController {
         teamResponse.setEmailId(team.getEmailId());
 
         return ResponseEntity.status(HttpStatus.OK).body(teamResponse);
+    }
+
+    @PostMapping("/update-team/{id}")
+    public ResponseEntity<?> updateTeam(@RequestBody TeamRequest teamRequest, @PathVariable Integer id){
+        Team team = teamService.getTeamById(id);
+
+        team.setTeamName(teamRequest.getTeamName());
+        team.setOwnerName(teamRequest.getOwnerName());
+        team.setCity(teamRequest.getCity());
+        team.setState(teamRequest.getState());
+        team.setEmailId(teamRequest.getEmailId());
+
+        teamService.addTeam(team);
+
+        return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
 
