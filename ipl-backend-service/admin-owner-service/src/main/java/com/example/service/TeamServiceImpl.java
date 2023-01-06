@@ -28,6 +28,11 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
+    public Team getTeamById(Integer id) {
+        return teamRepository.findById(id).get();
+    }
+
+    @Override
     public Integer findidByName(String ownerName) {
         return teamRepository.findIdByName(ownerName);
     }

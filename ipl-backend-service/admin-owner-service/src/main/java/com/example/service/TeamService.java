@@ -10,6 +10,7 @@ public interface TeamService {
     public void deleteTeam(Integer id);
     public List<Team> viewTeams();
 
+    public Team getTeamById(Integer id);
     public Integer findidByName(String ownerName);
 
 
