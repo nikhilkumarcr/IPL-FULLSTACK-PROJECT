@@ -6,6 +6,7 @@ import com.example.dto.TeamResponse;
 import com.example.entity.Team;
 import com.example.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TeamController {
 
+    @Autowired
     private final TeamService teamService;
-    private final RestTemplate restTemplate;
+
+//    @Autowired
+//    private final RestTemplate restTemplate;
 
     @GetMapping("/view-teams")
     public ResponseEntity<?>  viewTeams(){
@@ -42,20 +46,20 @@ public class TeamController {
         team.setTempPassword("123456");
         team = teamService.addTeam(team);
 
-        OwnerDetails ownerDetails = new OwnerDetails();
-        ownerDetails.setUsername(team.getOwnerName());
-        ownerDetails.setEmail(team.getEmailId());
-        ownerDetails.setPassword(team.getTempPassword());
+//        OwnerDetails ownerDetails = new OwnerDetails();
+//        ownerDetails.setUsername(team.getOwnerName());
+//        ownerDetails.setEmail(team.getEmailId());
+//        ownerDetails.setPassword(team.getTempPassword());
 
      //   restTemplate.postForObject("http://localhost:7002/api/auth/sign-up",ownerDetails,OwnerDetails.class);
 
-        return  ResponseEntity.status(HttpStatus.CREATED).body("Added");
+        return  ResponseEntity.status(HttpStatus.CREATED).body("Added Team Successfully!!!");
     }
 
      @DeleteMapping("/delete-team/{id}")
     public ResponseEntity<?> deleteTeam(@PathVariable Integer id){
         teamService.deleteTeam(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Team Removed");
+        return ResponseEntity.status(HttpStatus.OK).body("Team Removed !!!");
     }
 
     @GetMapping("/get-team/{id}")

@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.PlayerRequest;
 import com.example.dto.PlayerResponse;
 import com.example.dto.TeamRequest;
+import com.example.dto.TeamResponse;
 import com.example.entity.Player;
 import com.example.entity.Team;
 import com.example.repository.PlayerRepository;
@@ -45,12 +46,25 @@ public class PlayerController {
         return  ResponseEntity.status(HttpStatus.OK).body("Player removed !!!");
     }
 
-    @PostMapping("/update-team/{id}")
-    public ResponseEntity<?> updateTeam(@RequestBody PlayerRequest playerRequest, @PathVariable Integer id){
+    @GetMapping("/get-player/{id}")
+    public ResponseEntity<?>  getTeam(@PathVariable Integer id){
         Player player = playerService.getPlayerById(id);
 
-        playerService.addPlayer(player);
+        PlayerResponse playerResponse = new PlayerResponse();
+        playerResponse.setPlayerId(player.getPlayerId());
+        playerResponse.setPlayerName(player.getPlayerName());
+        playerResponse.setAge(player.getAge());
+        playerResponse.setForeign(player.getIsForegin());
+        playerResponse.setIsAvailable(player.getIsAvailable());
+        playerResponse.setImageUrl(player.getImageUrl());
+        playerResponse.setNationality(player.getNationality());
 
+        return ResponseEntity.status(HttpStatus.OK).body(playerResponse);
+    }
+    @PostMapping("/update-player/{id}")
+    public ResponseEntity<?> updateTeam(@RequestBody PlayerRequest playerRequest, @PathVariable Integer id){
+        Player player = playerService.getPlayerById(id);
+        playerService.addPlayer(player);
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
