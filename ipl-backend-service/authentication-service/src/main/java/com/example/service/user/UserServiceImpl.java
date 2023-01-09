@@ -58,22 +58,23 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User save(UserRequest user) {
+    public User save(UserRequest userRequest) {
 
-        User nUser = user.getUserFromUserRequest();
-        nUser.setPassword(encoder.encode(user.getPassword()));
+
+        User user = userRequest.getUserFromUserRequest();
+        user.setPassword(encoder.encode(userRequest.getPassword()));
 
         Role role = new Role();
         Set<Role> roleSet = new HashSet<>();
 
-        if(nUser.getEmail().split("@")[1].equals("admin.in")){
+        if(user.getEmail().split("@")[1].equals("admin.in")){
             role = roleService.findByName("Admin");
             roleSet.add(role);
         }else{
             role=roleService.findByName("Owner");
             roleSet.add(role);
         }
-        nUser.setRoles(roleSet);
-        return userRepository.save(nUser);
+        user.setRoles(roleSet);
+        return userRepository.save(user);
     }
 }

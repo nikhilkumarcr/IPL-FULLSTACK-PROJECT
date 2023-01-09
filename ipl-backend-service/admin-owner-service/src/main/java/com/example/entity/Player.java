@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="player_detail")
+@Table(name="player_details")
 
 public class Player {
 
@@ -18,16 +18,14 @@ public class Player {
     private Integer playerId;
     private String playerName;
     private Integer age;
-    private Boolean isForegin;
-    private Boolean isAvailable;
+    private Boolean foregin;
+    private Boolean available;
     private String specialty;
     private String imageUrl;
     private String nationality;
 
     @ManyToOne(targetEntity = Team.class)
-    @JoinTable(	name = "team_players",
-            joinColumns = @JoinColumn(name = "team_id"),
-            inverseJoinColumns = @JoinColumn(name = "player_id"))
+    @JoinColumn(name="team_id")
     private Team team;
 
 

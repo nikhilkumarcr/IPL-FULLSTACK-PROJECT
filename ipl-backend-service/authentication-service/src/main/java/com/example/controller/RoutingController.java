@@ -1,26 +1,28 @@
 package com.example.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/route")
 public class RoutingController {
 
+    @GetMapping("/all")
+    public String allPage(){
+        return "All can View this Page";
+    }
 
     @GetMapping("/admin-page")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String adminPing(){
+    @PreAuthorize("hasAuthority('Admin')")
+    public String adminPage(){
         return "Admin View Page";
     }
 
 
     @GetMapping("/owner-page")
-    @PreAuthorize("hasAuthority('OWNER')")
-    public String userPing(){
+    @PreAuthorize("hasAuthority('Owner')")
+    public String userPage(){
         return "Owner View Page";
     }
 

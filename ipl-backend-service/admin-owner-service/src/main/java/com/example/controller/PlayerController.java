@@ -30,8 +30,8 @@ public class PlayerController {
 
         List<PlayerResponse> playerResponses = players
                 .stream()
-                .map(player -> new PlayerResponse(player.getPlayerId(),player.getPlayerName(),player.getAge(),player.getSpecialty(),player.getIsForegin(),
-                  player.getIsAvailable(),player.getImageUrl(),player.getNationality()))
+                .map(player -> new PlayerResponse(player.getPlayerId(),player.getPlayerName(),player.getAge(),player.getSpecialty(),player.getForegin(),
+                  player.getAvailable(),player.getImageUrl(),player.getNationality()))
                 .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(playerResponses);
     }
@@ -54,18 +54,18 @@ public class PlayerController {
         playerResponse.setPlayerId(player.getPlayerId());
         playerResponse.setPlayerName(player.getPlayerName());
         playerResponse.setAge(player.getAge());
-        playerResponse.setForeign(player.getIsForegin());
-        playerResponse.setIsAvailable(player.getIsAvailable());
+        playerResponse.setForeign(player.getForegin());
+        playerResponse.setIsAvailable(player.getAvailable());
         playerResponse.setImageUrl(player.getImageUrl());
         playerResponse.setNationality(player.getNationality());
 
         return ResponseEntity.status(HttpStatus.OK).body(playerResponse);
     }
     @PostMapping("/update-player/{id}")
-    public ResponseEntity<?> updateTeam(@RequestBody PlayerRequest playerRequest, @PathVariable Integer id){
+    public ResponseEntity<?> updatePlayer(@RequestBody PlayerRequest playerRequest, @PathVariable Integer id){
         Player player = playerService.getPlayerById(id);
         playerService.addPlayer(player);
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        return ResponseEntity.status(HttpStatus.OK).body("Updated Player !!!");
     }
 
 

@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -49,8 +51,8 @@ public class AuthController {
     }
 
     @PostMapping ("/sign-up")
-    public User saveUser(@RequestBody UserRequest user){
-        return userService.save(user);
+    public User saveUser(@RequestBody UserRequest userRequest){
+        return userService.save(userRequest);
     }
 
 
