@@ -11,7 +11,7 @@ public interface TeamService {
     public List<Team> viewTeams();
 
     public Team getTeamById(Integer id);
-    public Integer findidByName(String teamName);
+
 
 
 

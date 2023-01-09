@@ -32,8 +32,4 @@ public class TeamServiceImpl implements TeamService{
         return teamRepository.findById(id).get();
     }
 
-    @Override
-    public Integer findidByName(String ownerName) {
-        return teamRepository.findIdByName(ownerName);
-    }
 }
