@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.service.team;
 
 import com.example.entity.Team;
 

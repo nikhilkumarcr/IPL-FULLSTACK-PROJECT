@@ -2,13 +2,10 @@ package com.example.controller;
 
 import com.example.dto.PlayerRequest;
 import com.example.dto.PlayerResponse;
-import com.example.dto.TeamRequest;
-import com.example.dto.TeamResponse;
 import com.example.entity.Player;
-import com.example.entity.Team;
-import com.example.repository.PlayerRepository;
-import com.example.service.PlayerService;
+import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PlayerController {
 
+    @Autowired
     private final PlayerService playerService;
 
     @GetMapping("/view-players")
@@ -35,11 +33,14 @@ public class PlayerController {
                 .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(playerResponses);
     }
+
+
     @PostMapping("/add-player")
     public ResponseEntity<?> addPlayer(@RequestBody Player player){
           playerService.addPlayer(player);
           return  ResponseEntity.status(HttpStatus.CREATED).body("added");
     }
+
     @DeleteMapping("/delete-player/{id}")
     public  ResponseEntity<?> delete(@PathVariable Integer id){
        playerService.deletePlayer(id);
@@ -61,6 +62,8 @@ public class PlayerController {
 
         return ResponseEntity.status(HttpStatus.OK).body(playerResponse);
     }
+
+
     @PostMapping("/update-player/{id}")
     public ResponseEntity<?> updatePlayer(@RequestBody PlayerRequest playerRequest, @PathVariable Integer id){
         Player player = playerService.getPlayerById(id);

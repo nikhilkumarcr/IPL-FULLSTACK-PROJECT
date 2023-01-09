@@ -1,14 +1,15 @@
-package com.example.service;
+package com.example.service.team;
 
 import com.example.entity.Team;
 import com.example.repository.TeamRepository;
+import com.example.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class TeamServiceImpl implements TeamService{
+public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
 

@@ -1,14 +1,15 @@
-package com.example.service;
+package com.example.service.player;
 
 import com.example.entity.Player;
 import com.example.repository.PlayerRepository;
+import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class PlayerServiceImpl implements PlayerService{
+public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository playerRepository;
 

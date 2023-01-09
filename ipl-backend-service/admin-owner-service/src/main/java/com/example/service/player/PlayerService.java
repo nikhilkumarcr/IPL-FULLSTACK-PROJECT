@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.service.player;
 
 import com.example.entity.Player;
 import com.example.entity.Team;

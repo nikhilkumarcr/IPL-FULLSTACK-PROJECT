@@ -14,14 +14,13 @@ public class RoutingController {
     }
 
     @GetMapping("/admin-page")
-    @PreAuthorize("hasAuthority('Admin')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String adminPage(){
         return "Admin View Page";
     }
 
-
     @GetMapping("/owner-page")
-    @PreAuthorize("hasAuthority('Owner')")
+    @PreAuthorize("hasAuthority('OWNER')")
     public String userPage(){
         return "Owner View Page";
     }

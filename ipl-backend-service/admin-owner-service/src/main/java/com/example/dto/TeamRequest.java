@@ -10,5 +10,6 @@ public class TeamRequest {
     private String city;
     private String state;
     private String emailId;
+    private String teamUrl;
 
 }

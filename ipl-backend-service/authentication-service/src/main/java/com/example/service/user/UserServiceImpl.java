@@ -68,10 +68,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         Set<Role> roleSet = new HashSet<>();
 
         if(user.getEmail().split("@")[1].equals("admin.in")){
-            role = roleService.findByName("Admin");
+            role = roleService.findByName("ADMIN");
             roleSet.add(role);
         }else{
-            role=roleService.findByName("Owner");
+            role=roleService.findByName("OWNER");
             roleSet.add(role);
         }
         user.setRoles(roleSet);
