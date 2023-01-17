@@ -72,7 +72,7 @@ function App() {
               </li>
               <li className="nav-item">
                 <a href="/home" className="nav-link" onClick={logOut} id='txt'>
-                  Log-Out
+                 <b> Log-Out</b>
                 </a>
               </li>
             </div>
