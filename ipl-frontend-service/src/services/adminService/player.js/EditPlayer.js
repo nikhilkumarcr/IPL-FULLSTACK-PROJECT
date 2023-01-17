@@ -80,6 +80,7 @@ export default function EditPlayer() {
                                     name='imageUrl'
                                     onChange={(e) => onInputChange(e)} />
                             </div>
+                            <br />
                             <div className='d-flex justify-content-around'>
                                 <button type="submit" className="btn btn-outline-success"><b>Update-Player</b></button>
                                 <Link type='button' className='btn btn-outline-danger' to={"/player"}><b>Cancel</b></Link>
