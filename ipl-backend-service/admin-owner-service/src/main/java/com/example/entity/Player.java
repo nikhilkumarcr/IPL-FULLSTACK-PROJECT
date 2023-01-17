@@ -18,7 +18,6 @@ public class Player {
     private Integer playerId;
     private String playerName;
     private Integer age;
-    private Boolean foregin;
     private Boolean available;
     private String specialty;
     private String imageUrl;
@@ -27,7 +26,6 @@ public class Player {
     @ManyToOne(targetEntity = Team.class)
     @JoinColumn(name="team_id")
     private Team team;
-
 
 
 }

@@ -33,4 +33,14 @@ public class TeamServiceImpl implements TeamService {
         return teamRepository.findById(id).get();
     }
 
+    @Override
+    public Team getTeamId(String ownerName) {
+        return teamRepository.getIdByName(ownerName);
+    }
+
+    @Override
+    public Team addTeamDetails(Team team) {
+        return teamRepository.save(team);
+    }
+
 }

@@ -15,4 +15,5 @@ public class TeamResponse {
     private String city;
     private String state;
     private String emailId;
+    private String teamUrl;
 }

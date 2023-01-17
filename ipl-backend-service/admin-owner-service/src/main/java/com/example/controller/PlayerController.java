@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/players/")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
 public class PlayerController {
 
@@ -28,17 +29,40 @@ public class PlayerController {
 
         List<PlayerResponse> playerResponses = players
                 .stream()
-                .map(player -> new PlayerResponse(player.getPlayerId(),player.getPlayerName(),player.getAge(),player.getSpecialty(),player.getForegin(),
-                  player.getAvailable(),player.getImageUrl(),player.getNationality()))
+                .map(player -> new PlayerResponse(player.getPlayerId(),player.getPlayerName(),player.getAge(),player.getSpecialty(),player.getImageUrl(),player.getNationality(),player.getAvailable(),player.getTeam()))
                 .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(playerResponses);
     }
 
 
     @PostMapping("/add-player")
-    public ResponseEntity<?> addPlayer(@RequestBody Player player){
-          playerService.addPlayer(player);
-          return  ResponseEntity.status(HttpStatus.CREATED).body("added");
+    public ResponseEntity<?> addPlayer(@RequestBody PlayerRequest playerRequest){
+         Player player = new Player();
+         player.setPlayerName(playerRequest.getPlayerName());
+         player.setAge(playerRequest.getAge());
+         player.setSpecialty(playerRequest.getSpecialty());
+         player.setNationality(playerRequest.getNationality());
+         player.setImageUrl(playerRequest.getImageUrl());
+         player.setAvailable(true);
+
+         player =  playerService.addPlayer(player);
+
+         PlayerResponse playerResponse = new PlayerResponse();
+
+         playerResponse.setPlayerId(player.getPlayerId());
+         playerResponse.setPlayerName(player.getPlayerName());
+         playerResponse.setAge(player.getAge());
+         playerResponse.setSpecialty(player.getSpecialty());
+         playerResponse.setNationality(player.getNationality());
+         playerResponse.setImageUrl(player.getImageUrl());
+         playerResponse.setAvailable(player.getAvailable());
+
+         System.out.println(player.getNationality());
+
+
+
+
+          return  ResponseEntity.status(HttpStatus.CREATED).body(playerResponse);
     }
 
     @DeleteMapping("/delete-player/{id}")
@@ -55,10 +79,10 @@ public class PlayerController {
         playerResponse.setPlayerId(player.getPlayerId());
         playerResponse.setPlayerName(player.getPlayerName());
         playerResponse.setAge(player.getAge());
-        playerResponse.setForeign(player.getForegin());
-        playerResponse.setIsAvailable(player.getAvailable());
+        playerResponse.setSpecialty(player.getSpecialty());
         playerResponse.setImageUrl(player.getImageUrl());
         playerResponse.setNationality(player.getNationality());
+        playerResponse.setAvailable(player.getAvailable());
 
         return ResponseEntity.status(HttpStatus.OK).body(playerResponse);
     }
@@ -67,6 +91,14 @@ public class PlayerController {
     @PostMapping("/update-player/{id}")
     public ResponseEntity<?> updatePlayer(@RequestBody PlayerRequest playerRequest, @PathVariable Integer id){
         Player player = playerService.getPlayerById(id);
+
+        player.setPlayerName(playerRequest.getPlayerName());
+        player.setAge(playerRequest.getAge());
+        player.setSpecialty(playerRequest.getSpecialty());
+        player.setNationality(playerRequest.getNationality());
+        player.setImageUrl(playerRequest.getImageUrl());
+        player.setAvailable(true);
+
         playerService.addPlayer(player);
         return ResponseEntity.status(HttpStatus.OK).body("Updated Player !!!");
     }

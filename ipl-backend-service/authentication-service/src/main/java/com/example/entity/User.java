@@ -13,10 +13,14 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+
     private String username;
+
     @JsonIgnore
     private String password;
+
     private String email;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name ="user_roles",
             joinColumns = {

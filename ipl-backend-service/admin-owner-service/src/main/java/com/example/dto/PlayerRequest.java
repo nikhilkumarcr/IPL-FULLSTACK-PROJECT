@@ -8,10 +8,8 @@ public class PlayerRequest {
     private String playerName;
     private Integer age;
     private String specialty;
-    private Boolean foregin;
-    private Boolean available;
     private String imageUrl;
     private String nationality;
+    private Boolean available;
 
-  //  private Team team;
 }

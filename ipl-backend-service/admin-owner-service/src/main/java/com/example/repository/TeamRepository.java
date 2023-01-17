@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team,Integer> {
-
+    @Query(value = "select * from team_details where owner_name=? ", nativeQuery = true)
+    public  Team getIdByName(String ownerName);
 }

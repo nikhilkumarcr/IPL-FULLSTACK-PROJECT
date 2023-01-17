@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/owner/")
 @RequiredArgsConstructor
@@ -30,8 +31,10 @@ public class OwnerController {
          Team team = new Team();
 
          team.setTeamId(teamId);
+
          Player player = playerService.getPlayerById(playerId);
 
+         player.setAvailable(false);
          player.setTeam(team);
          playerService.addPlayer(player);
 
@@ -42,6 +45,7 @@ public class OwnerController {
     @DeleteMapping("/delete-player/{playerId}")
     public ResponseEntity<?> deletePlayerFromTeam(@PathVariable Integer playerId){
         Player player = playerService.getPlayerById(playerId);
+        player.setAvailable(true);
         player.setTeam(null);
         playerService.addPlayer(player);
         return  ResponseEntity.status(HttpStatus.OK).body("Player Removed For Team !!!");

@@ -12,6 +12,9 @@ public interface TeamService {
 
     public Team getTeamById(Integer id);
 
+    public  Team getTeamId(String ownerName);
+
+    public Team addTeamDetails(Team team);
 
 
 

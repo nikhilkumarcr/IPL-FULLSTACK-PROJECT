@@ -1,11 +1,8 @@
 package com.example.controller;
 
-import com.example.dto.OwnerDetails;
-import com.example.dto.TeamRequest;
-import com.example.dto.TeamResponse;
+import com.example.dto.*;
 import com.example.entity.Player;
 import com.example.entity.Team;
-import com.example.repository.PlayerRepository;
 import com.example.service.player.PlayerService;
 import com.example.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +15,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/team/")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
 public class TeamController {
 
@@ -35,7 +33,7 @@ public class TeamController {
         List<Team> iplTeams = teamService.viewTeams();
         List<TeamResponse> teamResponses = iplTeams
                 .stream()
-                .map(team-> new TeamResponse(team.getTeamId(),team.getTeamName(),team.getOwnerName(),team.getCity(),team.getState(),team.getEmailId()))
+                .map(team-> new TeamResponse(team.getTeamId(),team.getTeamName(),team.getOwnerName(),team.getCity(),team.getState(),team.getEmailId(),team.getTeamUrl()))
                 .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(teamResponses);
     }
@@ -83,32 +81,38 @@ public class TeamController {
     public ResponseEntity<?> getTeamDetails(@PathVariable Integer teamId){
         Team team = teamService.getTeamById(teamId);
 
-        TeamResponse teamResponse = new TeamResponse();
-        teamResponse.setTeamId(team.getTeamId());
-        teamResponse.setTeamName(team.getTeamName());
-        teamResponse.setOwnerName(team.getOwnerName());
-        teamResponse.setEmailId(team.getEmailId());
-        teamResponse.setCity(team.getCity());
-        teamResponse.setState(team.getState());
-
+       TeamUpdateRequest teamResponse = new TeamUpdateRequest();
+       teamResponse.setTeamName(team.getTeamName());
+       teamResponse.setCity(team.getCity());
+       teamResponse.setState(team.getState());
+       teamResponse.setTeamUrl(team.getTeamUrl());
         return ResponseEntity.status(HttpStatus.OK).body(teamResponse);
     }
 
     @PostMapping("/update-team/{teamId}")
-    public ResponseEntity<?> updateTeam(@RequestBody TeamRequest teamRequest, @PathVariable Integer teamId){
+    public ResponseEntity<?> updateTeam(@RequestBody TeamUpdateRequest teamRequest, @PathVariable Integer teamId){
         Team team = teamService.getTeamById(teamId);
 
         team.setTeamName(teamRequest.getTeamName());
-        team.setOwnerName(teamRequest.getOwnerName());
         team.setCity(teamRequest.getCity());
         team.setState(teamRequest.getState());
-        team.setEmailId(teamRequest.getEmailId());
+        team.setTeamUrl(teamRequest.getTeamUrl());
 
-        teamService.addTeam(team);
+        teamService.addTeamDetails(team);
 
         return ResponseEntity.status(HttpStatus.OK).body("Team Details Updated!!!");
     }
 
+
+    @GetMapping("/get-id/{ownerName}")
+    public ResponseEntity<?> getTeamId(@PathVariable String ownerName){
+
+        Team team= teamService.getTeamId(ownerName);
+        TeamDetails teamDetails = new TeamDetails();
+        teamDetails.setTeamId(team.getTeamId());
+        teamDetails.setTeamName(team.getTeamName());
+        return  ResponseEntity.status(HttpStatus.OK).body(teamDetails);
+    }
 
 
 

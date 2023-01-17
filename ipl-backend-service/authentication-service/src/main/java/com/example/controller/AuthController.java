@@ -6,18 +6,23 @@ import com.example.dto.UserRequest;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
 import com.example.security.jwt.JwtUtils;
+import com.example.security.services.UserDetailsImpl;
 import com.example.service.user.UserService;
+import com.example.status_errors.HttpError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -38,18 +43,32 @@ public class AuthController {
     @PostMapping("/sign-in")
     public ResponseEntity<?> generateToken(@RequestBody LoginRequest loginRequest) throws AuthenticationException {
 
-        final Authentication authentication = authenticationManager.authenticate(
+        Authentication authentication=null;
+
+        try { authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
                         loginRequest.getPassword()
-                )
-        );
+                ));
+        }catch (BadCredentialsException e){
+            HttpError httpError = new HttpError();
+            httpError.setCode(HttpStatus.UNAUTHORIZED);
+            httpError.setMessage(e.getMessage());
+            return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(httpError);
+        }
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateJwtToken(authentication);
+
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> role = user.getAuthorities().stream()
+                .map(item->item.getAuthority())
+                .collect(Collectors.toList());
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setUsername(loginRequest.getUsername());
         loginResponse.setToken(token);
+        loginResponse.setRoles(role);
 
         return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
     }
