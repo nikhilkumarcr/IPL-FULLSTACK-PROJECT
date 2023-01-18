@@ -1,16 +1,17 @@
 package com.example.service.team;
 
 import com.example.entity.Team;
+import com.example.exceptions.NotFoundException;
 import com.example.repository.TeamRepository;
 import com.example.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
-
     private final TeamRepository teamRepository;
 
     @Override
@@ -19,8 +20,8 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public void deleteTeam(Integer id) {
-        teamRepository.deleteById(id);
+    public void deleteTeam(Integer teamId) {
+        teamRepository.deleteById(teamId);
     }
 
     @Override
@@ -29,8 +30,9 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team getTeamById(Integer id) {
-        return teamRepository.findById(id).get();
+    public Team getTeamById(Integer teamId) {
+        return teamRepository.findById(teamId)
+                .orElseThrow(()->new NotFoundException("No Team found for this TeamId" + teamId));
     }
 
     @Override

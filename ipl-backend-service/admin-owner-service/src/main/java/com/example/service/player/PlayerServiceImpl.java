@@ -1,6 +1,7 @@
 package com.example.service.player;
 
 import com.example.entity.Player;
+import com.example.exceptions.NotFoundException;
 import com.example.repository.PlayerRepository;
 import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void deletePlayer(Integer id) {
-        playerRepository.deleteById(id);
+    public void deletePlayer(Integer playerId) {
+        playerRepository.deleteById(playerId);
     }
 
     @Override
@@ -29,8 +30,9 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player getPlayerById(Integer id) {
-        return playerRepository.findById(id).orElse(null);
+    public Player getPlayerById(Integer playerId) {
+        return playerRepository.findById(playerId)
+                .orElseThrow(()->new NotFoundException("No Player found for this PlayerId" + playerId));
     }
 
     @Override

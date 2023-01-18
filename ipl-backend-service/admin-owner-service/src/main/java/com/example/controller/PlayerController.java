@@ -37,7 +37,9 @@ public class PlayerController {
 
     @PostMapping("/add-player")
     public ResponseEntity<?> addPlayer(@RequestBody PlayerRequest playerRequest){
+
          Player player = new Player();
+
          player.setPlayerName(playerRequest.getPlayerName());
          player.setAge(playerRequest.getAge());
          player.setSpecialty(playerRequest.getSpecialty());
@@ -57,25 +59,21 @@ public class PlayerController {
          playerResponse.setImageUrl(player.getImageUrl());
          playerResponse.setAvailable(player.getAvailable());
 
-         System.out.println(player.getNationality());
-
-
-
-
-          return  ResponseEntity.status(HttpStatus.CREATED).body(playerResponse);
+         return  ResponseEntity.status(HttpStatus.CREATED).body(playerResponse);
     }
 
-    @DeleteMapping("/delete-player/{id}")
-    public  ResponseEntity<?> delete(@PathVariable Integer id){
-       playerService.deletePlayer(id);
+    @DeleteMapping("/delete-player/{playerId}")
+    public  ResponseEntity<?> delete(@PathVariable Integer playerId){
+       playerService.deletePlayer(playerId);
         return  ResponseEntity.status(HttpStatus.OK).body("Player removed !!!");
     }
 
-    @GetMapping("/get-player/{id}")
-    public ResponseEntity<?>  getTeam(@PathVariable Integer id){
-        Player player = playerService.getPlayerById(id);
+    @GetMapping("/get-player/{playerId}")
+    public ResponseEntity<?>  getTeam(@PathVariable Integer playerId){
+        Player player = playerService.getPlayerById(playerId);
 
         PlayerResponse playerResponse = new PlayerResponse();
+
         playerResponse.setPlayerId(player.getPlayerId());
         playerResponse.setPlayerName(player.getPlayerName());
         playerResponse.setAge(player.getAge());
@@ -88,9 +86,9 @@ public class PlayerController {
     }
 
 
-    @PostMapping("/update-player/{id}")
-    public ResponseEntity<?> updatePlayer(@RequestBody PlayerRequest playerRequest, @PathVariable Integer id){
-        Player player = playerService.getPlayerById(id);
+    @PostMapping("/update-player/{playerId}")
+    public ResponseEntity<?> updatePlayer(@RequestBody PlayerRequest playerRequest, @PathVariable Integer playerId){
+        Player player = playerService.getPlayerById(playerId);
 
         player.setPlayerName(playerRequest.getPlayerName());
         player.setAge(playerRequest.getAge());

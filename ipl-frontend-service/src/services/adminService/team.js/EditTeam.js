@@ -25,7 +25,7 @@ export default function EditTeam() {
     }
     const onSubmit= async (e)=>{
         e.preventDefault()
-        await axios.put(`http://localhost:8082/api/update-team/${teamId}`,team)
+        await axios.post(`http://localhost:8082/api/update-team/${teamId}`,team)
         navigate('/team')
     } 
 

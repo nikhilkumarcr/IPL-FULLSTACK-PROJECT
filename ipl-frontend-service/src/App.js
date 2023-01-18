@@ -24,7 +24,7 @@ import OwnerId from './services/ownerService/OwnerId';
 
 
 function App() {
-  
+
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
@@ -49,29 +49,30 @@ function App() {
   };
   return (
     <div >
-        <nav className="navbar navbar-expand navbar-dark " style={{backgroundColor:'#6abdea'}}>
+      <nav className="navbar navbar-expand navbar-dark " style={{ backgroundColor: '#6abdea' }}>
 
-          <Link to={"/home"} className="navbar-brand">
-            <img src='../images/ipl_logo.png' alt='ipl-logo' id ='img'/>
-          </Link>
- <div className='d-flex justify-content-around'>
-          <div className="navbar-nav mr-auto">
-          <Link to={"/home"} className="navbar-brand">
-            <b>Indian Premier League</b>
-          </Link>
+        <Link to={"/home"} className="navbar-brand">
+          <img src='../images/ipl_logo.png' alt='ipl-logo' id='img' />
+        </Link>
 
-          </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <ul class="navbar-nav mr-auto">
+              <Link to={"/home"} className="navbar-brand">
+                <b>Indian Premier League</b>
+              </Link>
+          </ul>
 
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link  className="nav-link">
+                <Link className="nav-link">
                   <div style={{ textTransform: 'uppercase' }}>{currentUser.username}</div>
                 </Link>
               </li>
               <li className="nav-item">
                 <a href="/home" className="nav-link" onClick={logOut} id='txt'>
-                 <b> Log-Out</b>
+                  <b> Log-Out</b>
                 </a>
               </li>
             </div>
@@ -84,34 +85,34 @@ function App() {
               </li>
             </div>
           )}
-          </div>
-        </nav>
-
-        <div className='container'>
-          <Routes>
-            <Route path="/" element={<Home />} />
-
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/add-team" element={<AddTeam />} />
-            <Route path="/edit-team/:teamId" element={<EditTeam />} />
-            <Route path="/player" element={<Player />} />
-            <Route path="/add-player" element={<AddPlayer />} />
-            <Route path="/edit-player/:playerId" element={<EditPlayer />} />
-
-            <Route path="/owner" element={<OwnerId />} />
-
-            <Route path="/owner-page/:teamId" element={<Owner />} />
-            <Route path="/owner-team/:teamId" element={<OwnerTeam />} />
-            <Route path="/view-new-player/:teamId" element={<OwnerAddPlayer />} />
-            <Route path="/other-team-players/:teamId" element={<AnotherTeamView />} />
-          </Routes>
         </div>
+      </nav>
+
+      <div className='container'>
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/add-team" element={<AddTeam />} />
+          <Route path="/edit-team/:teamId" element={<EditTeam />} />
+          <Route path="/player" element={<Player />} />
+          <Route path="/add-player" element={<AddPlayer />} />
+          <Route path="/edit-player/:playerId" element={<EditPlayer />} />
+
+          <Route path="/owner" element={<OwnerId />} />
+
+          <Route path="/owner-page/:teamId" element={<Owner />} />
+          <Route path="/owner-team/:teamId" element={<OwnerTeam />} />
+          <Route path="/view-new-player/:teamId" element={<OwnerAddPlayer />} />
+          <Route path="/other-team-players/:teamId" element={<AnotherTeamView />} />
+        </Routes>
       </div>
-   
+    </div>
+
   );
 }
 
