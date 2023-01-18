@@ -34,8 +34,8 @@ export default function Player() {
                 </div>
                 <div className='col-md-3'>
                     <div className='text-right'>
-                        <Link className="btn btn-outline-success btn-sm m-2" to='/add-player'>Add-Player</Link>
-                        <Link className="btn btn-outline-dark btn-sm m-2" to='/admin'>Back-To-Team</Link>
+                        <Link className="btn btn-outline-success btn-sm m-2" to='/admin/add-player'>Add-Player</Link>
+                        <Link className="btn btn-outline-dark btn-sm m-2" to='/admin/admin-view'>Back-To-Team</Link>
 
                     </div>
 
@@ -68,7 +68,7 @@ export default function Player() {
                                                     <hr />
                                                 </Card.Body>
                                                 <div className='d-flex justify-content-around'>
-                                                    <Link type="button" className="btn btn-outline-dark" to={`/edit-player/${player.playerId}`} >Edit</Link>
+                                                    <Link type="button" className="btn btn-outline-dark" to={`/admin/edit-player/${player.playerId}`} >Edit</Link>
                                                     <button type="button" className="btn btn-outline-danger" onClick={() => deletePlayer(player.playerId)}>Delete</button>
                                                 </div>
                                                 <br />

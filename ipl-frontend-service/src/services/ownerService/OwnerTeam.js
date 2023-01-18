@@ -48,8 +48,8 @@ export default function OwnerTeam() {
                 </div>
                 <div className='col-md-5'>
                     <div className='text-right'>
-                    <Link type="button" state={{ data: finder() }} className="btn btn-outline-warning m-5" to={`/view-new-player/${teamId}`}>Add-Player</Link>
-                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner-page/${teamId}`}>Back-To-Owner</Link>
+                    <Link type="button" state={{ data: finder() }} className="btn btn-outline-warning m-5" to={`/owner/view-new-player/${teamId}`}>Add-Player</Link>
+                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner/owner-page/${teamId}`}>Back-To-Owner</Link>
                         
                     </div>
                 </div>

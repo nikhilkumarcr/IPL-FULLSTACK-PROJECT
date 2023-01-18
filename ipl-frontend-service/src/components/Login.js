@@ -56,10 +56,10 @@ function Login()  {
           const user = AuthService.getCurrentUser();
           console.log(user);
           if (user.roles.includes("ADMIN")) {
-            navigate("/admin");
+            navigate("/admin/admin-view");
             window.location.reload();
           } else if (user.roles.includes("OWNER")) {
-            navigate("/owner");
+            navigate("/owner/owner-view");
             window.location.reload();
           }
           else {

@@ -26,7 +26,7 @@ function Owner() {
                 <div>
                     <hr />
                     <div className='row'>
-                        <div className='col-md-9'>
+                        <div className='col-md-8'>
                             <div key={teams.teamId}>
                                 {teams.map((team) => {
                                     if (team.teamId === parseInt(teamId)) {
@@ -37,10 +37,10 @@ function Owner() {
                                 })}
                             </div>
                         </div>
-                        <div className='col-md-3'>
-                            <div className='text-right m-3'>
-                                <Link type="button" to={`/owner-team/${teamId}`} className="btn btn-outline-primary ">My Team</Link>
-                                <Link type="button" to={`/owner`} className="btn btn-outline-warning ">Back-To-Home</Link>
+                        <div className='col-md-4'>
+                            <div className='text-right'>
+                                <Link type="button" to={`/owner/owner-team/${teamId}`} className="btn btn-outline-primary m-2">My Team</Link>
+                                <Link type="button" to={`/owner/owner-view`} className="btn btn-outline-danger m-2">Back-To-Home</Link>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ function Owner() {
                                                     <td style={{ textTransform: 'uppercase' }}><b>{team.ownerName}</b></td>
                                                     <td><b>{team.city}</b></td>
                                                     <td><b>{team.state}</b></td>
-                                                    <td><Link type="button" state={{ viewTeam: team }} className="btn btn-outline-dark mr-5" to={`/other-team-players/${team.teamId}`}
+                                                    <td><Link type="button" state={{ viewTeam: team }} className="btn btn-outline-dark mr-5" to={`/owner/other-team-players/${team.teamId}`}
                                                     >Team Players</Link></td>
                                                 </tr>
                                             )

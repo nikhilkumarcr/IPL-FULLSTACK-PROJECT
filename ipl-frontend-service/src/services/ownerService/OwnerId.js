@@ -29,7 +29,7 @@ function OwnerId() {
                 </div>
                 <div className='col-md-3'>
                     <div className='text-right'>
-                        <Link type="button" className="btn btn-outline-primary" to={`/owner-page/${id.teamId}`} >Owner</Link>
+                        <Link type="button" className="btn btn-outline-primary" to={`/owner/owner-page/${id.teamId}`} >Owner</Link>
                     </div>
 
                 </div>

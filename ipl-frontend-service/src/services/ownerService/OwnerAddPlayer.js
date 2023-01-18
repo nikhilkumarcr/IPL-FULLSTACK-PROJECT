@@ -53,21 +53,22 @@ export default function OwnerAddPlayer() {
     return (
         <div className="container">
             <div className='container'>
-            <div className='row'>
             <hr />
-                <div className='col-md-8'>
-                   
+            <div className='row'>
+           
+                <div className='col-8'>
                     <br />
                     <h2> <b>Available Player List</b></h2>
                 </div>
 
-                <div className='col-md-4'>
+                <div className='col-4'>
                     <div className='text-right'>
-                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner-team/${teamId}`}>Back-To-Owner</Link>
+                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner/owner-team/${teamId}`}>Back-To-Owner</Link>
                     </div>
                 </div>
 
             </div>
+            <hr />
             </div>
             <br />
             <br />
@@ -95,7 +96,7 @@ export default function OwnerAddPlayer() {
                                             <td>{player.age}</td>
                                             <td>{player.nationality}</td>
                                             <td>{player.specialty}</td>
-                                            <td><button type="button" className="btn btn-danger" onClick={(e) => onAdding(e, player.playerId, player.nationality)}>Add</button></td>
+                                            <td><button type="button" className="btn btn-outline-warning" onClick={(e) => onAdding(e, player.playerId, player.nationality)}>Add</button></td>
                                         </tr>
                                     )
                                 })

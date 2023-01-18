@@ -35,7 +35,7 @@ export default function AddTeam() {
       e.preventDefault()
       form.current.validateAll();
       await axios.post(`http://localhost:8082/api/add-team`, team)
-      navigate('/team')
+      navigate('/admin/team')
    }
 
 
@@ -105,7 +105,7 @@ export default function AddTeam() {
                         <br />
                         <div className='d-flex justify-content-around'>
                            <button type="submit" className="btn btn-outline-success"><b>Add-Team</b></button>
-                           <Link type='button' className='btn btn-outline-danger' to={"/team"}><b>Cancel</b></Link>
+                           <Link type='button' className='btn btn-outline-danger' to={"/admin/team"}><b>Cancel</b></Link>
                         </div>
                      </div>
                      <CheckButton style={{ display: "none" }} ref={checkBtn} />

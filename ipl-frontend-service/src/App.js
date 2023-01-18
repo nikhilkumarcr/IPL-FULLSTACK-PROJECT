@@ -20,6 +20,8 @@ import OwnerAddPlayer from './services/ownerService/OwnerAddPlayer';
 import AnotherTeamView from './services/ownerService/AnotherTeamView';
 
 import OwnerId from './services/ownerService/OwnerId';
+import AdminRoutes from './services/adminService/AdminRoutes';
+import OwnerRoutes from './services/ownerService/OwnerRoutes';
 
 
 
@@ -58,9 +60,9 @@ function App() {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           <ul class="navbar-nav mr-auto">
-              <Link to={"/home"} className="navbar-brand">
-                <b>Indian Premier League</b>
-              </Link>
+            <Link to={"/home"} className="navbar-brand">
+              <b>Indian Premier League</b>
+            </Link>
           </ul>
 
           {currentUser ? (
@@ -95,20 +97,23 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
 
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/add-team" element={<AddTeam />} />
-          <Route path="/edit-team/:teamId" element={<EditTeam />} />
-          <Route path="/player" element={<Player />} />
-          <Route path="/add-player" element={<AddPlayer />} />
-          <Route path="/edit-player/:playerId" element={<EditPlayer />} />
+          <Route path="/admin" element={<AdminRoutes />}>
+            <Route path="admin-view" element={<Admin />} />
+            <Route path="team" element={<Team />} />
+            <Route path="add-team" element={<AddTeam />} />
+            <Route path="edit-team/:teamId" element={<EditTeam />} />
+            <Route path="player" element={<Player />} />
+            <Route path="add-player" element={<AddPlayer />} />
+            <Route path="edit-player/:playerId" element={<EditPlayer />} />
+          </Route>
 
-          <Route path="/owner" element={<OwnerId />} />
-
-          <Route path="/owner-page/:teamId" element={<Owner />} />
-          <Route path="/owner-team/:teamId" element={<OwnerTeam />} />
-          <Route path="/view-new-player/:teamId" element={<OwnerAddPlayer />} />
-          <Route path="/other-team-players/:teamId" element={<AnotherTeamView />} />
+          <Route path="/owner" element={<OwnerRoutes />}>
+            <Route path="owner-view" element={<OwnerId />} />
+            <Route path="owner-page/:teamId" element={<Owner />} />
+            <Route path="owner-team/:teamId" element={<OwnerTeam />} />
+            <Route path="view-new-player/:teamId" element={<OwnerAddPlayer />} />
+            <Route path="other-team-players/:teamId" element={<AnotherTeamView />} />
+          </Route>
         </Routes>
       </div>
     </div>

@@ -32,7 +32,7 @@ export default function AddPlayer() {
       e.preventDefault()
       form.current.validateAll();
       await axios.post(`http://localhost:8082/api/add-player`, player)
-      navigate('/player')
+      navigate('/admin/player')
 
    }
    return (
@@ -66,11 +66,6 @@ export default function AddPlayer() {
                         </div>
                         <div className="form-group">
                            <label ><b>Speciality : </b></label>
-                           {/* <input type="text"
-                              className="form-control"
-                              name='specialty'
-                              onChange={(e) => onInputChange(e)} /> */}
-
                            <Select className="form-control"
                               type="text"
                               name="specialty"
@@ -102,7 +97,7 @@ export default function AddPlayer() {
                         <br />
                         <div className='d-flex justify-content-around'>
                            <button type="submit" className="btn btn-outline-success"><b>Add-Player</b></button>
-                           <Link type='button' className='btn btn-outline-danger' to={"/player"}><b>Cancel</b></Link>
+                           <Link type='button' className='btn btn-outline-danger' to={"/admin/player"}><b>Cancel</b></Link>
                         </div>
                      </div>
                      <CheckButton style={{ display: "none" }} ref={checkBtn} />

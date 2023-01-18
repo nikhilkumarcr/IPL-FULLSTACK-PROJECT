@@ -26,7 +26,7 @@ export default function EditTeam() {
     const onSubmit= async (e)=>{
         e.preventDefault()
         await axios.post(`http://localhost:8082/api/update-team/${teamId}`,team)
-        navigate('/team')
+        navigate('/admin/team')
     } 
 
   return (
@@ -61,7 +61,7 @@ export default function EditTeam() {
 
            <button type="submit" className="btn btn-dark"><b>Update-Team</b></button>
            
-           <Link type='button' className='btn btn-danger' to={"/team"}><b>Cancel</b></Link>
+           <Link type='button' className='btn btn-danger' to={"/admin/team"}><b>Cancel</b></Link>
            </div>
            <br />
            </div>

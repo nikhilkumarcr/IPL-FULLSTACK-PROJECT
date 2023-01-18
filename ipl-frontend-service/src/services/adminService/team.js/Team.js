@@ -34,8 +34,8 @@ export default function Team() {
             </div>
             <div className='col-md-3'>
                <div className='text-right'>
-                  <Link className="btn btn-outline-success btn-sm m-2" to='/add-team'>New Team</Link>
-                  <Link className="btn btn-outline-dark btn-sm m-2" to='/admin'>Back-To-Home</Link>
+                  <Link className="btn btn-outline-success btn-sm m-2" to='/admin/add-team'>New Team</Link>
+                  <Link className="btn btn-outline-dark btn-sm m-2" to='/admin/admin-view'>Back-To-Home</Link>
                </div>
 
             </div>
@@ -71,7 +71,7 @@ export default function Team() {
 
                                     <div className='d-flex justify-content-around'>
                                        <Link type="button" className="btn btn-outline-dark btn-sm"
-                                          to={`/edit-team/${team.teamId}`} ><b>Edit</b></Link> 
+                                          to={`/admin/edit-team/${team.teamId}`} ><b>Edit</b></Link> 
                                        <button type="button" className="btn btn-outline-danger btn-sm"
                                           onClick={() => deleteTeam(team.teamId)}><b>Delete</b></button>
                                     </div>

@@ -28,7 +28,7 @@ export default function EditPlayer() {
     const onSubmit = async (e) => {
         e.preventDefault()
         await axios.post(`http://localhost:8082/api/update-player/${playerId}`, player)
-        navigate('/player')
+        navigate('/admin/player')
     }
 
     return (
@@ -83,7 +83,7 @@ export default function EditPlayer() {
                             <br />
                             <div className='d-flex justify-content-around'>
                                 <button type="submit" className="btn btn-outline-success"><b>Update-Player</b></button>
-                                <Link type='button' className='btn btn-outline-danger' to={"/player"}><b>Cancel</b></Link>
+                                <Link type='button' className='btn btn-outline-danger' to={"/admin/player"}><b>Cancel</b></Link>
                             </div>
                         </form>
                     </div>
