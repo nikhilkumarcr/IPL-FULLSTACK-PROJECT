@@ -54,9 +54,8 @@ function App() {
           <Link to={"/home"} className="navbar-brand">
             <img src='../images/ipl_logo.png' alt='ipl-logo' id ='img'/>
           </Link>
-
+ <div className='d-flex justify-content-around'>
           <div className="navbar-nav mr-auto">
-
           <Link to={"/home"} className="navbar-brand">
             <b>Indian Premier League</b>
           </Link>
@@ -85,6 +84,7 @@ function App() {
               </li>
             </div>
           )}
+          </div>
         </nav>
 
         <div className='container'>

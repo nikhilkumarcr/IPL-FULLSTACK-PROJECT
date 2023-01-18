@@ -45,8 +45,6 @@ export default function AddTeam() {
          <div className='row'>
             <div className='col-md-2'></div>
             <div className='col-md-8'>
-
-
                <div className='container w-50 shadow' id="team-card">
                   <h3><b>Add Team Form : </b></h3>
 
