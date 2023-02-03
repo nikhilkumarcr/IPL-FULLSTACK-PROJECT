@@ -24,7 +24,7 @@ export default function OwnerAddPlayer() {
     const loadUser = async () => {
         let result = await axios.get("http://localhost:8082/api/view-players")
         //console.log(result);
-        setPlayers(result.data.filter(ele => ele.available === true))
+        setPlayers(result.data.filter(e => e.available === true))
         //  console.log(result)
     }
 
@@ -78,7 +78,7 @@ export default function OwnerAddPlayer() {
                     <table className="table table-bordered table-hover">
                         <thead className="thead-dark">
                             <tr className='table table-dark'>
-                                <th>Team Images</th>
+                                {/* <th>Team Images</th> */}
                                 <th >PlayerName</th>
                                 <th >Age</th>
                                 <th >Country</th>
@@ -91,7 +91,7 @@ export default function OwnerAddPlayer() {
                                 players.map((player) => {
                                     return (
                                         <tr className='table-success text-dark'>
-                                            <td><img id='player-img' src={player.imageUrl} alt='player' /></td>
+                                            {/* <td><img id='player-img' src={player.imageUrl} alt='player' /></td> */}
                                             <td>{player.playerName}</td>
                                             <td>{player.age}</td>
                                             <td>{player.nationality}</td>

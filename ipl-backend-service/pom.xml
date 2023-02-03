@@ -16,7 +16,6 @@
     <modules>
         <module>authentication-service</module>
         <module>admin-owner-service</module>
-        <module>errorhandling-service</module>
     </modules>
 
     <properties>

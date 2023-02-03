@@ -1,11 +1,9 @@
 package com.example.service.team;
 
 import com.example.entity.Team;
-import com.example.exceptions.NotFoundException;
+import com.example.errors.NotFoundException;
 import com.example.repository.TeamRepository;
-import com.example.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

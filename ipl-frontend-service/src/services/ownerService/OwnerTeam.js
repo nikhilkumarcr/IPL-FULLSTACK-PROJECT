@@ -38,7 +38,7 @@ export default function OwnerTeam() {
 
 
     return (
-        <div className='container'>
+        <div className='container' id="body">
             <hr />
             <div className='row'>
                 
@@ -68,7 +68,7 @@ export default function OwnerTeam() {
                                             <Card id='card-body2'>
                                                 <div className='text-center'>
                                                     <br />
-                                                    <Card.Img id='card-img2' variant='top' src={player.imageUrl} />
+                                                    {/* <Card.Img id='card-img2' variant='top' src={player.imageUrl} /> */}
                                                     <Card.Body>
                                                         <hr />
                                                         <Card.Title><b>{player.playerName}</b></Card.Title>

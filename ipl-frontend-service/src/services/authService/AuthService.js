@@ -1,7 +1,5 @@
 import axios from "axios";
 
-//const API_URL = "http://localhost:8001/api/auth/";
-
 
 const login = async (username, password) => {
   return axios

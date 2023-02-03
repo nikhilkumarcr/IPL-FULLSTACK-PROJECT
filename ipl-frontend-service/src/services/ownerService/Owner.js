@@ -57,7 +57,7 @@ function Owner() {
                         <table className="table shadow">
                             <thead className="thead-dark">
                                 <tr className='table-dark'>
-                                    <th>Team Images</th>
+                                    {/* <th>Team Images</th> */}
                                     <th>Team Name</th>
                                     <th>Owner Name</th>
                                     <th>City</th>
@@ -71,7 +71,7 @@ function Owner() {
                                         if (team.ownerId !== parseInt(teamId)) {
                                             return (
                                                 <tr className='table-warning'>
-                                                    <td><img id='team-img' src={team.teamUrl} alt='team' /></td>
+                                                    {/* <td><img id='team-img' src={team.teamUrl} alt='team' /></td> */}
                                                     <td><b>{team.teamName}</b></td>
                                                     <td style={{ textTransform: 'uppercase' }}><b>{team.ownerName}</b></td>
                                                     <td><b>{team.city}</b></td>

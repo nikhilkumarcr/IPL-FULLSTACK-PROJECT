@@ -1,0 +1,131 @@
+package com.example.entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="team_details")
+@JsonIgnoreProperties(value={"handler","hibernateLazyInitializer","FieldHandler"})
+public class Team {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer teamId;
+    private String teamName;
+    private String ownerName;
+    private String city;
+    private String state;
+    private String emailId;
+    private String tempPassword;
+    private String teamUrl;
+
+    @OneToMany(targetEntity = Player.class)
+    @JoinTable(name="team_players",
+    joinColumns = @JoinColumn(name="team_id"),
+    inverseJoinColumns = @JoinColumn(name="player_id"))
+    @JsonBackReference
+    private List<Player> players;
+
+	public Team() {
+		super();
+	}
+
+	public Team(Integer teamId, String teamName, String ownerName, String city, String state, String emailId,
+			String tempPassword, String teamUrl, List<Player> players) {
+		super();
+		this.teamId = teamId;
+		this.teamName = teamName;
+		this.ownerName = ownerName;
+		this.city = city;
+		this.state = state;
+		this.emailId = emailId;
+		this.tempPassword = tempPassword;
+		this.teamUrl = teamUrl;
+		this.players = players;
+	}
+
+	public Integer getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(Integer teamId) {
+		this.teamId = teamId;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public String getTempPassword() {
+		return tempPassword;
+	}
+
+	public void setTempPassword(String tempPassword) {
+		this.tempPassword = tempPassword;
+	}
+
+	public String getTeamUrl() {
+		return teamUrl;
+	}
+
+	public void setTeamUrl(String teamUrl) {
+		this.teamUrl = teamUrl;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+    
+    
+
+
+}

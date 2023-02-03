@@ -42,7 +42,7 @@ export default function AnotherTeamView() {
                 <table className="table table-bordered table-hover">
                         <thead className="thead-dark">
                             <tr className='table table-dark'>
-                                <th>Team Images</th>
+                                {/* <th>Team Images</th> */}
                                 <th >PlayerName</th>
                                 <th >Age</th>
                                 <th >Country</th>
@@ -54,7 +54,7 @@ export default function AnotherTeamView() {
                                 players.map((player) => {
                                     return (
                                         <tr className='table-secondary text-dark'>
-                                            <td><img id='player-img' src={player.imageUrl} alt='player' /></td>
+                                            {/* <td><img id='player-img' src={player.imageUrl} alt='player' /></td> */}
                                             <td>{player.playerName}</td>
                                             <td>{player.age}</td>
                                             <td>{player.nationality}</td>

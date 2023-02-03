@@ -1,9 +1,8 @@
 package com.example.service.player;
 
 import com.example.entity.Player;
-import com.example.exceptions.NotFoundException;
+import com.example.errors.NotFoundException;
 import com.example.repository.PlayerRepository;
-import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

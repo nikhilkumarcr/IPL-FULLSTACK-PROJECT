@@ -1,14 +1,15 @@
 
 #card-body2{
-   
+   background-color: bisque;
     width: 15rem;
     height: auto;
-    margin: 10px;
+    margin: 13px;
     border: 2px;
     border-style:solid ;
     border-color: black;
     border-radius: 1rem;
     text-emphasis-color:white ;
+
 }
 
 #card-img2{
