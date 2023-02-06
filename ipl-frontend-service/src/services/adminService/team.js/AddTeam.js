@@ -34,7 +34,7 @@ export default function AddTeam() {
    const handleAdd = async (e) => {
       e.preventDefault()
       form.current.validateAll();
-      await axios.post(`http://localhost:8082/api/add-team`, team)
+      await axios.post(`http://3.108.219.116:8082/api/add-team`, team)
       navigate('/admin/team')
    }
 

@@ -13,7 +13,7 @@ export default function OwnerTeam() {
 
     const loadPlayer = async () => {
 
-        const result = await axios.get(`http://localhost:8082/api/owner/view-players/${teamId}`)
+        const result = await axios.get(`http://3.108.219.116:8082/api/owner/view-players/${teamId}`)
         setPlayers(result.data)
     }
 
@@ -32,7 +32,7 @@ export default function OwnerTeam() {
     }
 
     const onDelete = async (playerId) => {
-        await axios.delete(`http://localhost:8082/api/owner/delete-player/${playerId}`)
+        await axios.delete(`http://3.108.219.116:8082/api/owner/delete-player/${playerId}`)
         window.location.reload(false)
     }
 

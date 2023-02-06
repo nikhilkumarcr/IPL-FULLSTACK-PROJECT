@@ -31,7 +31,7 @@ export default function AddPlayer() {
    const onSubmit = async (e) => {
       e.preventDefault()
       form.current.validateAll();
-      await axios.post(`http://localhost:8082/api/add-player`, player)
+      await axios.post(`http://3.108.219.116:8082/api/add-player`, player)
       navigate('/admin/player')
 
    }

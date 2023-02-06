@@ -13,12 +13,12 @@ export default function Player() {
     }, [])
 
     const loadPlayers = async () => {
-        let result = await axios.get("http://localhost:8082/api/view-players")
+        let result = await axios.get("http://3.108.219.116:8082/api/view-players")
         setPlayers(result.data)
     }
 
     const deletePlayer = async (playerId) => {
-        await axios.delete(`http://localhost:8082/api/delete-player/${playerId}`)
+        await axios.delete(`http://3.108.219.116:8082/api/delete-player/${playerId}`)
         loadPlayers()
     }
 

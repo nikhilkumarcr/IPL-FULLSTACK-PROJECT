@@ -13,7 +13,7 @@ function OwnerId() {
     }, [])
 
     const getid = () => {
-        axios.get(`http://localhost:8082/api/get-teamId/${user.username}`).then((response) => {
+        axios.get(`http://3.108.219.116:8082/api/get-id/${user.username}`).then((response) => {
             console.log(response)
             setId(response.data)
 

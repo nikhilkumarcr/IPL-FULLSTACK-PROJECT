@@ -10,7 +10,7 @@ export default function AnotherTeamView() {
 
     const loadPlayer = async () => {
 
-        const result = await axios.get(`http://localhost:8082/api/owner/view-players/${teamId}`)
+        const result = await axios.get(`http://3.108.219.116:8082/api/owner/view-players/${teamId}`)
         setPlayers(result.data)
     }
 

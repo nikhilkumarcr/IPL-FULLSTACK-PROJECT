@@ -5,7 +5,6 @@ import './App.css';
 
 import Home from './components/Home';
 import Login from './components/Login';
-import EventBus from './eventBus/EventBus';
 import AuthService from './services/authService/AuthService';
 import Admin from './services/adminService/Admin';
 import Owner from './services/ownerService/Owner';
@@ -22,6 +21,7 @@ import AnotherTeamView from './services/ownerService/AnotherTeamView';
 import OwnerId from './services/ownerService/OwnerId';
 import AdminRoutes from './services/adminService/AdminRoutes';
 import OwnerRoutes from './services/ownerService/OwnerRoutes';
+import EventBus from './components/EventBus';
 
 
 

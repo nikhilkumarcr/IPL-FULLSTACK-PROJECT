@@ -14,7 +14,7 @@ export default function EditPlayer() {
 
     const getPlayer = async () => {
 
-        const result = await axios.get(`http://localhost:8082/api/get-player/${playerId}`)
+        const result = await axios.get(`http://3.108.219.116:8082/api/get-player/${playerId}`)
         setPlayer(result.data)
     }
 
@@ -27,7 +27,7 @@ export default function EditPlayer() {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        await axios.post(`http://localhost:8082/api/update-player/${playerId}`, player)
+        await axios.post(`http://3.108.219.116:8082/api/update-player/${playerId}`, player)
         navigate('/admin/player')
     }
 

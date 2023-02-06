@@ -31,7 +31,7 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private JwtEntryPoint unauthorizedHandler;
+    private final JwtEntryPoint unauthorizedHandler;
 
     @Bean
     public JwtTokenFilter authenticationJwtTokenFilter() {

@@ -12,7 +12,7 @@ export default function EditTeam() {
     const[team,setTeam]=useState({})
 
     const getTeam= async ()=>{
-        const result=await axios.get(`http://localhost:8082/api/get-team/${teamId}`)
+        const result=await axios.get(`http://3.108.219.116:8082/api/get-team/${teamId}`)
         setTeam(result.data)
     }
 
@@ -25,7 +25,7 @@ export default function EditTeam() {
     }
     const onSubmit= async (e)=>{
         e.preventDefault()
-        await axios.post(`http://localhost:8082/api/update-team/${teamId}`,team)
+        await axios.post(`http://3.108.219.116:8082/api/update-team/${teamId}`,team)
         navigate('/admin/team')
     } 
 

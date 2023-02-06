@@ -15,7 +15,7 @@ function Owner() {
     }, [])
 
     const loadUser = async () => {
-        let result = await axios.get("http://localhost:8082/api/view-teams")
+        let result = await axios.get("http://3.108.219.116:8082/api/view-teams")
         setTeams(result.data)
     }
 
