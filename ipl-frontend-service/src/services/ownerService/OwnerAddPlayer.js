@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useLocation, Link } from 'react-router-dom'
 import './OwerAddPlayer.css';
+import Url from '../../components/ApiUrl';
 
 
 export default function OwnerAddPlayer() {
@@ -22,7 +23,7 @@ export default function OwnerAddPlayer() {
     }, [])
 
     const loadUser = async () => {
-        let result = await axios.get("http://3.108.219.116:8082/api/view-players")
+        let result = await axios.get(Url.adminUrl + "view-players")
         //console.log(result);
         setPlayers(result.data.filter(e => e.available === true))
         //  console.log(result)
@@ -37,12 +38,12 @@ export default function OwnerAddPlayer() {
             if (nationality !== 'India') {
 
                 if (foreignPlayer < 6) {
-                    await axios.post(`http://3.108.219.116:8082/api/owner/add-player/${teamId}/${playerId}`)
+                    await axios.post(Url.ownerUrl + `add-player/${teamId}/${playerId}`)
                     window.location.reload(false)
                 }
             }
             else {
-                await axios.post(`http://3.108.219.116:8082/api/owner/add-player/${teamId}/${playerId}`)
+                await axios.post(Url.ownerUrl + `add-player/${teamId}/${playerId}`)
                 window.location.reload(false)
             }
         }

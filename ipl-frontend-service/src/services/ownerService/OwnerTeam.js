@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import './OwnerTeam.css';
+import Url from '../../components/ApiUrl';
 
 
 export default function OwnerTeam() {
@@ -13,7 +14,7 @@ export default function OwnerTeam() {
 
     const loadPlayer = async () => {
 
-        const result = await axios.get(`http://3.108.219.116:8082/api/owner/view-players/${teamId}`)
+        const result = await axios.get(Url.ownerUrl + `view-players/${teamId}`)
         setPlayers(result.data)
     }
 
@@ -32,7 +33,7 @@ export default function OwnerTeam() {
     }
 
     const onDelete = async (playerId) => {
-        await axios.delete(`http://3.108.219.116:8082/api/owner/delete-player/${playerId}`)
+        await axios.delete(Url.ownerUrl + `delete-player/${playerId}`)
         window.location.reload(false)
     }
 
@@ -49,7 +50,7 @@ export default function OwnerTeam() {
                 <div className='col-md-5'>
                     <div className='text-right'>
                     <Link type="button" state={{ data: finder() }} className="btn btn-outline-warning m-5" to={`/owner/view-new-player/${teamId}`}>Add-Player</Link>
-                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner/owner-page/${teamId}`}>Back-To-Owner</Link>
+                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner/owner-page`}>Back-To-Owner</Link>
                         
                     </div>
                 </div>

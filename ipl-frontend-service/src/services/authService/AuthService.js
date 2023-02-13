@@ -1,9 +1,10 @@
 import axios from "axios";
+import Url from "../../components/ApiUrl";
 
 
 const login = async (username, password) => {
   return axios
-    .post("http://3.108.219.116:8081/api/auth/sign-in", {
+    .post(Url.authUrl + "sign-in", {
       username,
       password,
     })

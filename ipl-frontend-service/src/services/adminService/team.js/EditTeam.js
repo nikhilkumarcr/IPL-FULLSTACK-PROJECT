@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import './FormStyle.css';
+import Url from '../../../components/ApiUrl';
 
 
 export default function EditTeam() {
@@ -12,7 +13,7 @@ export default function EditTeam() {
     const[team,setTeam]=useState({})
 
     const getTeam= async ()=>{
-        const result=await axios.get(`http://3.108.219.116:8082/api/get-team/${teamId}`)
+        const result=await axios.get(Url.adminUrl + `get-team/${teamId}`)
         setTeam(result.data)
     }
 
@@ -25,7 +26,7 @@ export default function EditTeam() {
     }
     const onSubmit= async (e)=>{
         e.preventDefault()
-        await axios.post(`http://3.108.219.116:8082/api/update-team/${teamId}`,team)
+        await axios.post(Url.adminUrl + `update-team/${teamId}`,team)
         navigate('/admin/team')
     } 
 

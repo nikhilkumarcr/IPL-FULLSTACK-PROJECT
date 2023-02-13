@@ -59,7 +59,7 @@ function Login()  {
             navigate("/admin/admin-view");
             window.location.reload();
           } else if (user.roles.includes("OWNER")) {
-            navigate("/owner/owner-view");
+            navigate("/owner/owner-page");
             window.location.reload();
           }
           else {

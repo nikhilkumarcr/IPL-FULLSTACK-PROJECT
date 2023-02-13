@@ -6,6 +6,7 @@ import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
 import CheckButton from "react-validation/build/button";
 import './Form.css';
+import Url from '../../../components/ApiUrl';
 
 export default function AddPlayer() {
 
@@ -31,7 +32,7 @@ export default function AddPlayer() {
    const onSubmit = async (e) => {
       e.preventDefault()
       form.current.validateAll();
-      await axios.post(`http://3.108.219.116:8082/api/add-player`, player)
+      await axios.post(Url.adminUrl + `add-player`, player)
       navigate('/admin/player')
 
    }

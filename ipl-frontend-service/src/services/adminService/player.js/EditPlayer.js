@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import './Form.css';
+import Url from '../../../components/ApiUrl';
 
 
 export default function EditPlayer() {
@@ -14,7 +15,7 @@ export default function EditPlayer() {
 
     const getPlayer = async () => {
 
-        const result = await axios.get(`http://3.108.219.116:8082/api/get-player/${playerId}`)
+        const result = await axios.get(Url.adminUrl + `get-player/${playerId}`)
         setPlayer(result.data)
     }
 
@@ -27,7 +28,7 @@ export default function EditPlayer() {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        await axios.post(`http://3.108.219.116:8082/api/update-player/${playerId}`, player)
+        await axios.post(Url.adminUrl + `update-player/${playerId}`, player)
         navigate('/admin/player')
     }
 

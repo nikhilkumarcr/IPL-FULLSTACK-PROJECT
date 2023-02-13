@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import './Player.css';
+import Url from '../../../components/ApiUrl';
 
 export default function Player() {
 
@@ -13,12 +14,12 @@ export default function Player() {
     }, [])
 
     const loadPlayers = async () => {
-        let result = await axios.get("http://3.108.219.116:8082/api/view-players")
+        let result = await axios.get(Url.adminUrl + "view-players")
         setPlayers(result.data)
     }
 
     const deletePlayer = async (playerId) => {
-        await axios.delete(`http://3.108.219.116:8082/api/delete-player/${playerId}`)
+        await axios.delete( Url.adminUrl + `delete-player/${playerId}`)
         loadPlayers()
     }
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Url from '../../components/ApiUrl';
 import AuthService from '../authService/AuthService';
 
 function OwnerId() {
@@ -13,7 +14,7 @@ function OwnerId() {
     }, [])
 
     const getid = () => {
-        axios.get(`http://3.108.219.116:8082/api/get-id/${user.username}`).then((response) => {
+        axios.get(Url.adminUrl + `get-id/${user.username}`).then((response) => {
             console.log(response)
             setId(response.data)
 

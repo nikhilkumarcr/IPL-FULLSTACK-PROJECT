@@ -108,8 +108,8 @@ function App() {
           </Route>
 
           <Route path="/owner" element={<OwnerRoutes />}>
-            <Route path="owner-view" element={<OwnerId />} />
-            <Route path="owner-page/:teamId" element={<Owner />} />
+            {/* <Route path="owner-view" element={<OwnerId />} /> */}
+            <Route path="owner-page" element={<Owner />} />
             <Route path="owner-team/:teamId" element={<OwnerTeam />} />
             <Route path="view-new-player/:teamId" element={<OwnerAddPlayer />} />
             <Route path="other-team-players/:teamId" element={<AnotherTeamView />} />

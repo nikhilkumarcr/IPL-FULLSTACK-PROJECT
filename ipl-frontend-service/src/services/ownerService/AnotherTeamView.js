@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {  useParams } from 'react-router-dom';
+import Url from '../../components/ApiUrl';
 
 
 export default function AnotherTeamView() {
@@ -10,7 +11,7 @@ export default function AnotherTeamView() {
 
     const loadPlayer = async () => {
 
-        const result = await axios.get(`http://3.108.219.116:8082/api/owner/view-players/${teamId}`)
+        const result = await axios.get(Url.ownerUrl + `view-players/${teamId}`)
         setPlayers(result.data)
     }
 

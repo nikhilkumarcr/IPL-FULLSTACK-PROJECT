@@ -1,12 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import Url from '../../components/ApiUrl';
+import AuthService from '../authService/AuthService';
 
 import './Owner.css';
 
 function Owner() {
 
-    const { teamId } = useParams()
+    // const { teamId } = useParams()
+    const user = AuthService.getCurrentUser();
+    const [id, setId] = useState([]);
 
     const [teams, setTeams] = useState([])
 
@@ -14,9 +18,22 @@ function Owner() {
         loadUser()
     }, [])
 
+    useEffect(() => {
+        getid()
+    }, [])
+
+
     const loadUser = async () => {
-        let result = await axios.get("http://3.108.219.116:8082/api/view-teams")
+        let result = await axios.get(Url.adminUrl + "view-teams")
         setTeams(result.data)
+    }
+
+    const getid = () => {
+        axios.get(Url.adminUrl + `get-id/${user.username}`).then((response) => {
+            console.log(response)
+            setId(response.data)
+
+        })
     }
 
     return (
@@ -29,7 +46,7 @@ function Owner() {
                         <div className='col-md-8'>
                             <div key={teams.teamId}>
                                 {teams.map((team) => {
-                                    if (team.teamId === parseInt(teamId)) {
+                                    if (team.teamId === id.teamId) {
                                         return (
                                             <div className='display-4'><b>{team.teamName}</b></div>
                                         )
@@ -39,8 +56,8 @@ function Owner() {
                         </div>
                         <div className='col-md-4'>
                             <div className='text-right'>
-                                <Link type="button" to={`/owner/owner-team/${teamId}`} className="btn btn-outline-primary m-2">My Team</Link>
-                                <Link type="button" to={`/owner/owner-view`} className="btn btn-outline-danger m-2">Back-To-Home</Link>
+                                <Link type="button" to={`/owner/owner-team/${id.teamId}`} className="btn btn-outline-primary m-2">My Team</Link>
+                                {/* <Link type="button" to={`/owner/owner-team`} className="btn btn-outline-danger m-2">Back-To-Home</Link> */}
                             </div>
                         </div>
                     </div>
@@ -68,7 +85,7 @@ function Owner() {
                             <tbody>
                                 {
                                     teams.map((team) => {
-                                        if (team.ownerId !== parseInt(teamId)) {
+                                        if (team.ownerId !== id.teamId) {
                                             return (
                                                 <tr className='table-warning'>
                                                     {/* <td><img id='team-img' src={team.teamUrl} alt='team' /></td> */}

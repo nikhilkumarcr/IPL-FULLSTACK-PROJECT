@@ -6,6 +6,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import './FormStyle.css';
+import Url from '../../../components/ApiUrl';
 
 
 export default function AddTeam() {
@@ -34,7 +35,7 @@ export default function AddTeam() {
    const handleAdd = async (e) => {
       e.preventDefault()
       form.current.validateAll();
-      await axios.post(`http://3.108.219.116:8082/api/add-team`, team)
+      await axios.post(Url.adminUrl + `add-team`, team)
       navigate('/admin/team')
    }
 

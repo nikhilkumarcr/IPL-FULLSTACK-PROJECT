@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import './Team.css'
+import Url from '../../../components/ApiUrl';
 
 export default function Team() {
 
@@ -13,13 +14,13 @@ export default function Team() {
    }, [])
 
    const viewTeams = async () => {
-      let result = await axios.get("http://3.108.219.116:8082/api/view-teams")
+      let result = await axios.get(Url.adminUrl + "view-teams")
       console.log(result)
       setTeams(result.data)
    }
 
    const deleteTeam = async (teamId) => {
-      await axios.delete(`http://3.108.219.116:8082/api/delete-team/${teamId}`)
+      await axios.delete( Url.adminUrl + `delete-team/${teamId}`)
       viewTeams()
    }
 
