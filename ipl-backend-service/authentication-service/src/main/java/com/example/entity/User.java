@@ -8,21 +8,24 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name="user_details")
+@Table(name="users_list")
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "username")
     private String username;
 
     @JsonIgnore
+    @Column(name="password")
     private String password;
 
+    @Column(name="email_id")
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name ="user_roles",
+    @JoinTable(name ="user_roles_list",
             joinColumns = {
                     @JoinColumn(name = "user_id")
             },

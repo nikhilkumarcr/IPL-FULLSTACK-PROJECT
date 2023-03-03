@@ -31,12 +31,12 @@ export default function Player() {
             <hr />
             <div className='row'>
                 <div className='col-md-9'>
-                    <div className='display-4'><b>Player Page View</b> </div>
+                    <div className='display-4'><b>List of Players</b> </div>
                 </div>
                 <div className='col-md-3'>
                     <div className='text-right'>
                         <Link className="btn btn-outline-success btn-sm m-2" to='/admin/add-player'>Add-Player</Link>
-                        <Link className="btn btn-outline-dark btn-sm m-2" to='/admin/admin-view'>Back-To-Team</Link>
+                        <Link className="btn btn-outline-dark btn-sm m-2" to='/admin/team'>Back-To-Team</Link>
 
                     </div>
 

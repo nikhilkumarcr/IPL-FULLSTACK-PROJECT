@@ -14,7 +14,6 @@ public interface TeamService {
 
     public  Team getTeamId(String ownerName);
 
-    public Team addTeamDetails(Team team);
 
 
 

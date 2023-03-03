@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.Player;
 import com.example.entity.Team;
+import com.example.errors.ExceptionErrorHandler;
 import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,34 +22,61 @@ public class OwnerController {
     private final PlayerService playerService;
 
     @GetMapping("/view-players/{teamId}")
-    public List<Player> viewPlayerByOwnerId(@PathVariable Integer teamId){
-        return  playerService.getAllPlayer(teamId);
+    public ResponseEntity<?> viewPlayerByOwnerId(@PathVariable Integer teamId){
+        try {
+            return new ResponseEntity<List<Player>>(playerService.getAllPlayer(teamId), HttpStatus.OK);
+        }catch (ExceptionErrorHandler e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("612", "Error in Owner Controller !!!" + e.getMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }
     }
 
 
     @PostMapping("/add-player/{teamId}/{playerId}")
     public ResponseEntity<?> addPlayerToTeam(@PathVariable Integer teamId, @PathVariable Integer playerId){
-         Team team = new Team();
+        try {
 
-         team.setTeamId(teamId);
+            Team team = new Team();
 
-         Player player = playerService.getPlayerById(playerId);
+            team.setTeamId(teamId);
 
-         player.setAvailable(false);
-         player.setTeam(team);
-         playerService.addPlayer(player);
+            Player player = playerService.getPlayerById(playerId);
 
-         return  ResponseEntity.status(HttpStatus.CREATED).body("Player Added to Owner-Team!!!!");
+            player.setAvailable(false);
+            player.setTeam(team);
+            playerService.addPlayer(player);
+
+            return new ResponseEntity<String>("Player added successfully !!!",HttpStatus.OK);
+        }catch (ExceptionErrorHandler e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("612", "Error in Owner Controller !!!" + e.getMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }
     }
 
 
     @DeleteMapping("/delete-player/{playerId}")
     public ResponseEntity<?> deletePlayerFromTeam(@PathVariable Integer playerId){
-        Player player = playerService.getPlayerById(playerId);
-        player.setAvailable(true);
-        player.setTeam(null);
-        playerService.addPlayer(player);
-        return  ResponseEntity.status(HttpStatus.OK).body("Player Removed For Team !!!");
+
+        try {
+
+            Player player = playerService.getPlayerById(playerId);
+            player.setAvailable(true);
+            player.setTeam(null);
+            playerService.addPlayer(player);
+            return new ResponseEntity<String>("Player Removed from Team !!!",HttpStatus.OK);
+        }catch (ExceptionErrorHandler e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("612", "Error in Owner Controller !!!" + e.getMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }
     }
 
 

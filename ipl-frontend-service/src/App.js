@@ -6,7 +6,7 @@ import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import AuthService from './services/authService/AuthService';
-import Admin from './services/adminService/Admin';
+// import Admin from './services/adminService/Admin';
 import Owner from './services/ownerService/Owner';
 import Team from './services/adminService/team.js/Team';
 import AddTeam from './services/adminService/team.js/AddTeam';
@@ -18,7 +18,7 @@ import OwnerTeam from './services/ownerService/OwnerTeam';
 import OwnerAddPlayer from './services/ownerService/OwnerAddPlayer';
 import AnotherTeamView from './services/ownerService/AnotherTeamView';
 
-import OwnerId from './services/ownerService/OwnerId';
+// import OwnerId from './services/ownerService/OwnerId';
 import AdminRoutes from './services/adminService/AdminRoutes';
 import OwnerRoutes from './services/ownerService/OwnerRoutes';
 import EventBus from './components/EventBus';
@@ -98,7 +98,7 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/admin" element={<AdminRoutes />}>
-            <Route path="admin-view" element={<Admin />} />
+            {/* <Route path="admin-view" element={<Admin />} /> */}
             <Route path="team" element={<Team />} />
             <Route path="add-team" element={<AddTeam />} />
             <Route path="edit-team/:teamId" element={<EditTeam />} />

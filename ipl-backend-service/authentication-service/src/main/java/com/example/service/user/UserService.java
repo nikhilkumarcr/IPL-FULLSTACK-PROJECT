@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface UserService {
     User save(UserRequest user);
-    List<User> findAll();
-    User findOne(String username);
-
+//    List<User> findAll();
+//    User findOne(String username);
+   Boolean existsByUsername(String username);
+    Boolean existsByEmail(String email);
 }

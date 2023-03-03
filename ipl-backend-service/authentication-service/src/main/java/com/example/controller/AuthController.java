@@ -4,8 +4,7 @@ import com.example.dto.LoginResponse;
 import com.example.dto.LoginRequest;
 import com.example.dto.UserRequest;
 import com.example.entity.User;
-import com.example.errors.HttpError;
-import com.example.repository.UserRepository;
+import com.example.errors.ExceptionErrorHandler;
 import com.example.security.jwt.JwtUtils;
 import com.example.security.services.UserDetailsImpl;
 import com.example.service.user.UserService;
@@ -14,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,60 +32,64 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     @Autowired
     private final JwtUtils jwtTokenUtil;
-
     @Autowired
     private final UserService userService;
 
-    @Autowired
-    private final UserRepository userRepository;
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> generateToken(@RequestBody LoginRequest loginRequest) throws AuthenticationException {
 
-        Authentication authentication=null;
-
-        try { authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                ));
-        }catch (BadCredentialsException e){
-            HttpError httpError = new HttpError();
-            httpError.setCode(HttpStatus.UNAUTHORIZED);
-            httpError.setMessage(e.getMessage());
-            return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(httpError);
+        if(loginRequest.getUsername().isEmpty() || loginRequest.getUsername().length()==0){
+            throw new ExceptionErrorHandler("801","User name can not be empty !!! Enter a valid username");
         }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = jwtTokenUtil.generateJwtToken(authentication);
+        try {
 
-        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> role = user.getAuthorities().stream()
-                .map(item->item.getAuthority())
-                .collect(Collectors.toList());
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    ));
 
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setUsername(loginRequest.getUsername());
-        loginResponse.setToken(token);
-        loginResponse.setRoles(role);
 
-        return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            final String token = jwtTokenUtil.generateJwtToken(authentication);
+
+            UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> role = user.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
+
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setUsername(loginRequest.getUsername());
+            loginResponse.setToken(token);
+            loginResponse.setRoles(role);
+
+            return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
+
+        }catch (ExceptionErrorHandler e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(),e.getErrorMessage());
+            return  new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }catch(Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("811","Error in given log-in details !!! Check log-in details "+e.getMessage());
+            return  new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping ("/sign-up")
-    public ResponseEntity<?> saveUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> saveUser(@RequestBody @Valid  UserRequest userRequest) {
 
-        if (userRepository.existsByUsername(userRequest.getUsername())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username Already Taken!!!");
+        if (userService.existsByUsername(userRequest.getUsername())) {
+            return new ResponseEntity<String>("Username Already Taken !!!",HttpStatus.BAD_REQUEST);
 
-        } else if (userRepository.existsByEmail(userRequest.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email Already Taken!!!");
+        } else if (userService.existsByEmail(userRequest.getEmail())) {
+            return new ResponseEntity<String>("Email Id Already Taken !!!",HttpStatus.BAD_REQUEST);
 
-        } else {
-            User user = new User();
-            user = userService.save(userRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body(user);
         }
+            User user = userService.save(userRequest);
+            return new ResponseEntity<User>(user,HttpStatus.CREATED);
+
+
     }
 
 

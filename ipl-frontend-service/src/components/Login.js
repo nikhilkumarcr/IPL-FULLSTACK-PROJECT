@@ -56,7 +56,7 @@ function Login()  {
           const user = AuthService.getCurrentUser();
           console.log(user);
           if (user.roles.includes("ADMIN")) {
-            navigate("/admin/admin-view");
+            navigate("/admin/team");
             window.location.reload();
           } else if (user.roles.includes("OWNER")) {
             navigate("/owner/owner-page");

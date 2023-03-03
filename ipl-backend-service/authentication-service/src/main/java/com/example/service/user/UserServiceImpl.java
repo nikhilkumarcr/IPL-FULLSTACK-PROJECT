@@ -3,6 +3,7 @@ package com.example.service.user;
 import com.example.dto.UserRequest;
 import com.example.entity.Role;
 import com.example.entity.User;
+import com.example.errors.ExceptionErrorHandler;
 import com.example.repository.UserRepository;
 import com.example.service.role.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,12 @@ import java.util.Set;
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final RoleService roleService;
+
     private final UserRepository userRepository;
 
     @Autowired
     private final PasswordEncoder encoder;
+
 
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,35 +49,60 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return authorities;
     }
 
-    public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        userRepository.findAll().iterator().forEachRemaining(list::add);
-        return list;
-    }
+//    public List<User> findAll() {
+//        List<User> list = new ArrayList<>();
+//        userRepository.findAll().iterator().forEachRemaining(list::add);
+//        return list;
+//    }
 
-    @Override
-    public User findOne(String username) {
-        return userRepository.findByUsername(username);
-    }
+//    @Override
+//    public User findOne(String username) {
+//        return userRepository.findByUsername(username);
+//    }
 
     @Override
     public User save(UserRequest userRequest) {
 
+        if(userRequest.getUsername().isEmpty() || userRequest.getUsername().length()==0){
 
-        User user = userRequest.getUserFromUserRequest();
+            throw  new ExceptionErrorHandler("801","User name can not be empty !!!");
+        }else if(userRequest.getEmail().isEmpty() || userRequest.getEmail().length()==0){
+
+            throw  new ExceptionErrorHandler("801","Email id can not be empty !!!");
+        }
+
+        User user = new User();
+
+        user.setUsername(userRequest.getUsername());
+        user.setEmail(userRequest.getEmail());
         user.setPassword(encoder.encode(userRequest.getPassword()));
 
         Role role = new Role();
         Set<Role> roleSet = new HashSet<>();
 
         if(user.getEmail().split("@")[1].equals("admin.in")){
+
             role = roleService.findByName("ADMIN");
             roleSet.add(role);
+
         }else{
+
             role=roleService.findByName("OWNER");
             roleSet.add(role);
         }
         user.setRoles(roleSet);
         return userRepository.save(user);
+    }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public Boolean existsByEmail(String email) {
+
+        return userRepository.existsByEmail(email);
     }
 }
