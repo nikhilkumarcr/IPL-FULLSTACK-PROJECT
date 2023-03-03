@@ -18,16 +18,16 @@ public class TeamServiceImpl implements TeamService {
     public Team addTeam(Team team) {
 
         if(team.getTeamName().isEmpty() || team.getTeamName().length()==0){
-            throw new ExceptionErrorHandler("701","Team Name can not be empty !!!. Enter proper team name !!!");
+            throw new ExceptionErrorHandler("601","Team Name can not be empty !!!. Enter proper team name !!!");
         }else if(team.getOwnerName().isEmpty() || team.getOwnerName().length()==0){
-            throw  new ExceptionErrorHandler("701","Owner name can not be empty !!!. Enter proper owner name !!!!");
+            throw  new ExceptionErrorHandler("601","Owner name can not be empty !!!. Enter proper owner name !!!!");
         }
         try {
             return teamRepository.save(team);
         }catch (IllegalArgumentException e){
-        throw new ExceptionErrorHandler("702","Team Details is null !!!" + e.getMessage());
+        throw new ExceptionErrorHandler("604","Team Details is null !!!" + e.getMessage());
         }catch(Exception e ){
-        throw new ExceptionErrorHandler("703","Error in team service  !!!");
+        throw new ExceptionErrorHandler("602","Error in team service  !!!");
     }
     }
 
@@ -36,7 +36,8 @@ public class TeamServiceImpl implements TeamService {
         try {
             teamRepository.deleteById(teamId);
         }catch(Exception e){
-            throw new ExceptionErrorHandler("704","Team Id is null !!! . Give valid team id!!!" + e.getMessage());
+
+            throw new ExceptionErrorHandler("603","Team Id is null !!! . Give valid team id!!!" + e.getMessage());
         }
     }
 
@@ -45,10 +46,10 @@ public class TeamServiceImpl implements TeamService {
         try {
             List<Team> allTeam = teamRepository.findAll();
             if(allTeam.isEmpty())
-                throw new ExceptionErrorHandler("705","Team List is empty !!!");
+                throw new ExceptionErrorHandler("601","Team List is empty !!!");
             return allTeam;
         }catch(Exception e){
-            throw  new ExceptionErrorHandler("706","Error in player service layer !!!"+ e.getMessage());
+            throw  new ExceptionErrorHandler("602","Error in player service layer !!!"+ e.getMessage());
         }
     }
 
@@ -57,9 +58,9 @@ public class TeamServiceImpl implements TeamService {
         try {
             return teamRepository.findById(teamId).get();
         }catch(IllegalArgumentException e){
-            throw new ExceptionErrorHandler("707","Team Id is  not found !!!"+ e.getMessage());
+            throw new ExceptionErrorHandler("604","Team Id is  not found !!!"+ e.getMessage());
         }catch(NoSuchElementException e){
-            throw new ExceptionErrorHandler("708","Team Id does not exist !!!" + e.getMessage());
+            throw new ExceptionErrorHandler("604","Team Id does not exist !!!" + e.getMessage());
         }
     }
 
@@ -69,7 +70,7 @@ public class TeamServiceImpl implements TeamService {
         try {
             return teamRepository.getIdByName(ownerName);
         }catch(IllegalArgumentException e){
-            throw new ExceptionErrorHandler("709","Owner name does not exist  !!!"+ e.getMessage());
+            throw new ExceptionErrorHandler("604","Owner name does not exist  !!!"+ e.getMessage());
         }
     }
 

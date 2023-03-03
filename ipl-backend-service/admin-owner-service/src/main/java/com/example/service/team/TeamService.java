@@ -1,7 +1,6 @@
 package com.example.service.team;
 
 import com.example.entity.Team;
-
 import java.util.List;
 
 public interface TeamService {

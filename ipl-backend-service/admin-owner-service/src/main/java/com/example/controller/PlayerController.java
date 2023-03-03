@@ -3,7 +3,6 @@ package com.example.controller;
 import com.example.dto.PlayerRequest;
 import com.example.dto.PlayerResponse;
 import com.example.entity.Player;
-
 import com.example.errors.ExceptionErrorHandler;
 import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

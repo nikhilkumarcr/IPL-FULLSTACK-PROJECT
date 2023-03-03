@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="player_details")
-
 public class Player {
 
     @Id

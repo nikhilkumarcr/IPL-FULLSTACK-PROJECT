@@ -17,9 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.AuthenticationException;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,10 +34,14 @@ public class AuthController {
 
 
     @PostMapping("/sign-in")
-    public ResponseEntity<?> generateToken(@RequestBody LoginRequest loginRequest) throws AuthenticationException {
+    public ResponseEntity<?> generateToken(@RequestBody LoginRequest loginRequest){
 
         if(loginRequest.getUsername().isEmpty() || loginRequest.getUsername().length()==0){
-            throw new ExceptionErrorHandler("801","User name can not be empty !!! Enter a valid username");
+
+            return new ResponseEntity<String>("User name can not be empty !!! Enter a valid username",HttpStatus.BAD_REQUEST);
+        }else if(loginRequest.getPassword().isEmpty() || loginRequest.getPassword().length()==0){
+
+            return new ResponseEntity<String>("Password can not be empty !!! Enter a valid password",HttpStatus.BAD_REQUEST);
         }
 
         try {
@@ -77,7 +78,7 @@ public class AuthController {
     }
 
     @PostMapping ("/sign-up")
-    public ResponseEntity<?> saveUser(@RequestBody @Valid  UserRequest userRequest) {
+    public ResponseEntity<?> saveUser(@RequestBody   UserRequest userRequest) {
 
         if (userService.existsByUsername(userRequest.getUsername())) {
             return new ResponseEntity<String>("Username Already Taken !!!",HttpStatus.BAD_REQUEST);
@@ -86,8 +87,16 @@ public class AuthController {
             return new ResponseEntity<String>("Email Id Already Taken !!!",HttpStatus.BAD_REQUEST);
 
         }
+        try {
             User user = userService.save(userRequest);
-            return new ResponseEntity<User>(user,HttpStatus.CREATED);
+            return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        }catch (ExceptionErrorHandler e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("811", "Error in Auth Controller at sign-up !!!" + e.getMessage());
+            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+        }
 
 
     }

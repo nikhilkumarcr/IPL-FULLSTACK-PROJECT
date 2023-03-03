@@ -2,7 +2,6 @@ package com.example.service.role;
 
 import com.example.entity.Role;
 import com.example.repository.RoleRepository;
-import com.example.service.role.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

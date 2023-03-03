@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -29,7 +28,7 @@ public class OwnerController {
             ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
             return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("612", "Error in Owner Controller !!!" + e.getMessage());
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Owner Controller !!!" + e.getMessage());
             return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
         }
     }
@@ -54,7 +53,7 @@ public class OwnerController {
             ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
             return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("612", "Error in Owner Controller !!!" + e.getMessage());
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Owner Controller !!!" + e.getMessage());
             return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
         }
     }
@@ -74,7 +73,7 @@ public class OwnerController {
             ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
             return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("612", "Error in Owner Controller !!!" + e.getMessage());
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Owner Controller !!!" + e.getMessage());
             return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
         }
     }

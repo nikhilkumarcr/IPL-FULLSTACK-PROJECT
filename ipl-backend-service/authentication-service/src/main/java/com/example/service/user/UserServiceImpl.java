@@ -14,10 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -49,49 +46,49 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return authorities;
     }
 
-//    public List<User> findAll() {
-//        List<User> list = new ArrayList<>();
-//        userRepository.findAll().iterator().forEachRemaining(list::add);
-//        return list;
-//    }
-
-//    @Override
-//    public User findOne(String username) {
-//        return userRepository.findByUsername(username);
-//    }
 
     @Override
     public User save(UserRequest userRequest) {
 
-        if(userRequest.getUsername().isEmpty() || userRequest.getUsername().length()==0){
+        if (userRequest.getUsername().isEmpty() || userRequest.getUsername().length() == 0) {
 
-            throw  new ExceptionErrorHandler("801","User name can not be empty !!!");
-        }else if(userRequest.getEmail().isEmpty() || userRequest.getEmail().length()==0){
+            throw new ExceptionErrorHandler("801", "User name can not be empty !!!");
 
-            throw  new ExceptionErrorHandler("801","Email id can not be empty !!!");
+        } else if (userRequest.getEmail().isEmpty() || userRequest.getEmail().length() == 0) {
+
+            throw new ExceptionErrorHandler("801", "Email id can not be empty !!!");
+        } else if(userRequest.getPassword().isEmpty() || userRequest.getPassword().length()<6){
+
+            throw  new ExceptionErrorHandler("801","Password can not be empty or Password should have more than 6 characters!!!");
         }
 
-        User user = new User();
+        try {
+            User user = new User();
 
-        user.setUsername(userRequest.getUsername());
-        user.setEmail(userRequest.getEmail());
-        user.setPassword(encoder.encode(userRequest.getPassword()));
+            user.setUsername(userRequest.getUsername());
+            user.setEmail(userRequest.getEmail());
+            user.setPassword(encoder.encode(userRequest.getPassword()));
 
-        Role role = new Role();
-        Set<Role> roleSet = new HashSet<>();
+            Role role = new Role();
+            Set<Role> roleSet = new HashSet<>();
 
-        if(user.getEmail().split("@")[1].equals("admin.in")){
+            if (user.getEmail().split("@")[1].equals("admin.in")) {
 
-            role = roleService.findByName("ADMIN");
-            roleSet.add(role);
+                role = roleService.findByName("ADMIN");
+                roleSet.add(role);
 
-        }else{
+            } else {
 
-            role=roleService.findByName("OWNER");
-            roleSet.add(role);
+                role = roleService.findByName("OWNER");
+                roleSet.add(role);
+            }
+            user.setRoles(roleSet);
+            return userRepository.save(user);
+        } catch (IllegalArgumentException e) {
+            throw new ExceptionErrorHandler("802", "User Details is null !!!" + e.getMessage());
+        } catch (Exception e) {
+            throw new ExceptionErrorHandler("802", "Error in user service  !!!");
         }
-        user.setRoles(roleSet);
-        return userRepository.save(user);
     }
 
     @Override
