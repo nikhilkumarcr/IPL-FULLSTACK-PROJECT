@@ -40,11 +40,11 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.OK).body(teamResponses);
 
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("711", "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Team Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/add-team")
@@ -73,12 +73,12 @@ public class TeamController {
 
         }catch (ExceptionErrorHandler e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("711", "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Team Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -98,12 +98,12 @@ public class TeamController {
             return new ResponseEntity<String>("Team Removed !!!",HttpStatus.OK);
         }catch (ExceptionErrorHandler e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("711", "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in Team Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -122,12 +122,12 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.OK).body(teamResponse);
         }catch (ExceptionErrorHandler e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Team Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -147,12 +147,12 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.OK).body("Team Details Updated!!!");
         }catch (ExceptionErrorHandler e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in Team Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -170,11 +170,11 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.OK).body(teamDetails);
 
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in Team Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 

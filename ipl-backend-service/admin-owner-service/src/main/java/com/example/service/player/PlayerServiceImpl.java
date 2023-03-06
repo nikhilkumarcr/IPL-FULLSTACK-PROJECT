@@ -19,15 +19,15 @@ public class PlayerServiceImpl implements PlayerService {
     public Player addPlayer(Player player) {
 
         if(player.getPlayerName().isEmpty() || player.getPlayerName().length()== 0 ){
-            throw new ExceptionErrorHandler("601","Player name can not be empty!!!" );
+            throw new ExceptionErrorHandler("Player name can not be empty!!!" );
         }
 
        try {
            return playerRepository.save(player);
        }catch (IllegalArgumentException e){
-           throw new ExceptionErrorHandler("604","Player details is null" + e.getMessage());
+           throw new ExceptionErrorHandler("Player details is null" + e.getMessage());
        }catch(Exception e ){
-           throw new ExceptionErrorHandler("602","Error in player service layer !!!");
+           throw new ExceptionErrorHandler("Error in player service layer !!!");
        }
     }
 
@@ -37,7 +37,7 @@ public class PlayerServiceImpl implements PlayerService {
             playerRepository.deleteById(playerId);
         }catch(Exception e){
 
-            throw new ExceptionErrorHandler("603","Player Id is null . Give valid player id!!!" + e.getMessage());
+            throw new ExceptionErrorHandler("Player Id is null . Give valid player id!!!" + e.getMessage());
         }
     }
 
@@ -47,10 +47,10 @@ public class PlayerServiceImpl implements PlayerService {
         try {
             List<Player> allPlayer = playerRepository.findAll();
             if(allPlayer.isEmpty())
-                throw new ExceptionErrorHandler("601","Player List is empty !!!");
+                throw new ExceptionErrorHandler("Player List is empty !!!");
             return allPlayer;
         }catch(Exception e){
-            throw  new ExceptionErrorHandler("602","Error in player service layer !!!"+ e.getMessage());
+            throw  new ExceptionErrorHandler("Error in player service layer !!!"+ e.getMessage());
         }
     }
 
@@ -60,10 +60,10 @@ public class PlayerServiceImpl implements PlayerService {
             return playerRepository.findById(playerId).get();
         }catch(IllegalArgumentException e){
 
-            throw new ExceptionErrorHandler("604","Player Id is  not found !!!"+ e.getMessage());
+            throw new ExceptionErrorHandler("Player Id is  not found !!!"+ e.getMessage());
         }catch(NoSuchElementException e){
 
-            throw new ExceptionErrorHandler("605","Player Id does not exist !!!" + e.getMessage());
+            throw new ExceptionErrorHandler("Player Id does not exist !!!" + e.getMessage());
         }
 
     }
@@ -77,10 +77,10 @@ public class PlayerServiceImpl implements PlayerService {
 
         }catch(IllegalArgumentException e){
 
-            throw new ExceptionErrorHandler("604","Player Id is  not found !!!"+ e.getMessage());
+            throw new ExceptionErrorHandler("Player Id is  not found !!!"+ e.getMessage());
         }catch(NoSuchElementException e){
 
-            throw new ExceptionErrorHandler("605","Player Id does not exist !!!" + e.getMessage());
+            throw new ExceptionErrorHandler("Player Id does not exist !!!" + e.getMessage());
         }
     }
 }

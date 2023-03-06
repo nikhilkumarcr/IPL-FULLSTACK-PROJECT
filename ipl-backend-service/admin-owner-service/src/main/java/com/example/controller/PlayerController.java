@@ -32,9 +32,11 @@ public class PlayerController {
                     .map(player -> new PlayerResponse(player.getPlayerId(), player.getPlayerName(), player.getAge(), player.getSpecialty(), player.getImageUrl(), player.getNationality(), player.getAvailable(), player.getTeam()))
                     .collect(Collectors.toList());
             return new ResponseEntity<List<PlayerResponse>>(playerResponses,HttpStatus.OK);
+
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -66,23 +68,31 @@ public class PlayerController {
             playerResponse.setAvailable(player.getAvailable());
 
             return new ResponseEntity<PlayerResponse>(playerResponse, HttpStatus.CREATED);
+
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in player Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in player Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/delete-player/{playerId}")
     public  ResponseEntity<?> delete(@PathVariable Integer playerId){
         try {
+
             playerService.deletePlayer(playerId);
             return new ResponseEntity<String>("Player deleted from the player details",HttpStatus.OK);
+
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+
         }
     }
 
@@ -102,9 +112,12 @@ public class PlayerController {
             playerResponse.setAvailable(player.getAvailable());
 
             return new ResponseEntity<PlayerResponse>(playerResponse,HttpStatus.OK);
+
         }catch (ExceptionErrorHandler e) {
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex, HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(), HttpStatus.BAD_REQUEST);
+
         }
     }
 
@@ -134,9 +147,12 @@ public class PlayerController {
             playerResponse.setAvailable(player.getAvailable());
             playerResponse.setTeam(player.getTeam());
             return new ResponseEntity<PlayerResponse>(playerResponse, HttpStatus.OK);
+
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+
         }
     }
 

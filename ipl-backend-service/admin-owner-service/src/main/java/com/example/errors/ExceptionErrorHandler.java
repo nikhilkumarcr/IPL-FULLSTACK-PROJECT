@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ExceptionErrorHandler extends  RuntimeException{
 
-    private String errorCode;
-
     private String errorMessage;
 
 

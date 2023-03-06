@@ -69,11 +69,14 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
 
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(),e.getErrorMessage());
-            return  new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorMessage());
+            return  new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+
         }catch(Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("811","Error in given log-in details !!! Check log-in details "+e.getMessage());
-            return  new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("Invalid log-in details !!! Check log-in details !!! ");
+            return  new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -88,14 +91,19 @@ public class AuthController {
 
         }
         try {
+
             User user = userService.save(userRequest);
             return new ResponseEntity<User>(user, HttpStatus.CREATED);
+
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("811", "Error in Auth Controller at sign-up !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Auth Controller at sign-up !!! Check the entered details !!!");
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
 
 

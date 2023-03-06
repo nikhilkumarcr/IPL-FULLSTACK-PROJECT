@@ -32,8 +32,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
+
         if(user == null){
-            throw new UsernameNotFoundException("Invalid username or password.");
+            throw new ExceptionErrorHandler("Invalid Username or Password !!!");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
     }
@@ -52,14 +53,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
         if (userRequest.getUsername().isEmpty() || userRequest.getUsername().length() == 0) {
 
-            throw new ExceptionErrorHandler("801", "User name can not be empty !!!");
+            throw  new ExceptionErrorHandler("Username can not empty !!!");
 
         } else if (userRequest.getEmail().isEmpty() || userRequest.getEmail().length() == 0) {
 
-            throw new ExceptionErrorHandler("801", "Email id can not be empty !!!");
+            throw new ExceptionErrorHandler( "Email id can not be empty !!!");
         } else if(userRequest.getPassword().isEmpty() || userRequest.getPassword().length()<6){
 
-            throw  new ExceptionErrorHandler("801","Password can not be empty or Password should have more than 6 characters!!!");
+            throw  new ExceptionErrorHandler("Password can not be empty or Password should have more than 6 characters!!!");
         }
 
         try {
@@ -84,10 +85,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             }
             user.setRoles(roleSet);
             return userRepository.save(user);
+
         } catch (IllegalArgumentException e) {
-            throw new ExceptionErrorHandler("802", "User Details is null !!!" + e.getMessage());
+
+            throw new ExceptionErrorHandler( "User Details is null !!!" + e.getMessage());
         } catch (Exception e) {
-            throw new ExceptionErrorHandler("802", "Error in user service  !!!");
+
+            throw new ExceptionErrorHandler( "Error in user service  !!!");
         }
     }
 

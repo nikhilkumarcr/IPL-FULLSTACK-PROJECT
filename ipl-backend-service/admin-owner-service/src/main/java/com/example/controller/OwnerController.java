@@ -25,11 +25,11 @@ public class OwnerController {
         try {
             return new ResponseEntity<List<Player>>(playerService.getAllPlayer(teamId), HttpStatus.OK);
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Owner Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -50,11 +50,11 @@ public class OwnerController {
 
             return new ResponseEntity<String>("Player added successfully !!!",HttpStatus.OK);
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Owner Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -70,11 +70,11 @@ public class OwnerController {
             playerService.addPlayer(player);
             return new ResponseEntity<String>("Player Removed from Team !!!",HttpStatus.OK);
         }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorCode(), e.getErrorMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("611", "Error in Owner Controller !!!" + e.getMessage());
-            return new ResponseEntity<ExceptionErrorHandler>(ex,HttpStatus.BAD_REQUEST);
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
