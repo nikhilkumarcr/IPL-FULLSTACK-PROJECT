@@ -4,7 +4,7 @@ import com.example.dto.LoginResponse;
 import com.example.dto.LoginRequest;
 import com.example.dto.UserRequest;
 import com.example.entity.User;
-import com.example.errors.ExceptionErrorHandler;
+import com.example.exceptionHandler.ExceptionErrorHandler;
 import com.example.security.jwt.JwtUtils;
 import com.example.security.services.UserDetailsImpl;
 import com.example.service.user.UserService;
@@ -68,12 +68,7 @@ public class AuthController {
 
             return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
 
-        }catch (ExceptionErrorHandler e){
-
-            ExceptionErrorHandler ex = new ExceptionErrorHandler(e.getErrorMessage());
-            return  new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-
-        }catch(Exception e){
+        } catch(Exception e){
 
             ExceptionErrorHandler ex = new ExceptionErrorHandler("Invalid log-in details !!! Check log-in details !!! ");
             return  new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);

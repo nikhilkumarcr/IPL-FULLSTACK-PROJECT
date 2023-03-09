@@ -1,7 +1,7 @@
 package com.example.service.player;
 
 import com.example.entity.Player;
-import com.example.errors.ExceptionErrorHandler;
+import com.example.exceptionHandler.ExceptionErrorHandler;
 import com.example.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
 
     @Override
-    public Player addPlayer(Player player) {
+    public Player addPlayer(Player player) throws ExceptionErrorHandler {
 
         if(player.getPlayerName().isEmpty() || player.getPlayerName().length()== 0 ){
             throw new ExceptionErrorHandler("Player name can not be empty!!!" );
@@ -32,7 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void deletePlayer(Integer playerId) {
+    public void deletePlayer(Integer playerId) throws ExceptionErrorHandler {
         try {
             playerRepository.deleteById(playerId);
         }catch(Exception e){
@@ -42,7 +42,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<Player> viewPlayers() {
+    public List<Player> viewPlayers() throws ExceptionErrorHandler {
 
         try {
             List<Player> allPlayer = playerRepository.findAll();
@@ -55,7 +55,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player getPlayerById(Integer playerId) {
+    public Player getPlayerById(Integer playerId) throws ExceptionErrorHandler {
         try {
             return playerRepository.findById(playerId).get();
         }catch(IllegalArgumentException e){
@@ -69,7 +69,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<Player> getAllPlayer(Integer teamId) {
+    public List<Player> getAllPlayer(Integer teamId) throws ExceptionErrorHandler {
 
         try {
 

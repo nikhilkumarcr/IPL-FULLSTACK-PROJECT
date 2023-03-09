@@ -3,7 +3,7 @@ package com.example.service.user;
 import com.example.dto.UserRequest;
 import com.example.entity.Role;
 import com.example.entity.User;
-import com.example.errors.ExceptionErrorHandler;
+import com.example.exceptionHandler.ExceptionErrorHandler;
 import com.example.repository.UserRepository;
 import com.example.service.role.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         User user = userRepository.findByUsername(username);
 
         if(user == null){
-            throw new ExceptionErrorHandler("Invalid Username or Password !!!");
+            try {
+                throw new ExceptionErrorHandler("Invalid Username or Password !!!");
+            } catch (ExceptionErrorHandler e) {
+                throw new RuntimeException(e);
+            }
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
     }
@@ -49,7 +53,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 
     @Override
-    public User save(UserRequest userRequest) {
+    public User save(UserRequest userRequest) throws ExceptionErrorHandler {
 
         if (userRequest.getUsername().isEmpty() || userRequest.getUsername().length() == 0) {
 

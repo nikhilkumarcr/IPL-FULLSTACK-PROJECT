@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
-import "bootstrap/dist/css/bootstrap.min.css"
+import React from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-
 import Home from './components/Home';
 import Login from './components/Login';
-import AuthService from './services/authService/AuthService';
+import { NavBar } from './components/NavBar';
+
 // import Admin from './services/adminService/Admin';
 import Owner from './services/ownerService/Owner';
-import Team from './services/adminService/team.js/Team';
-import AddTeam from './services/adminService/team.js/AddTeam';
-import EditTeam from './services/adminService/team.js/EditTeam';
-import Player from './services/adminService/player.js/Player';
-import AddPlayer from './services/adminService/player.js/AddPlayer';
-import EditPlayer from './services/adminService/player.js/EditPlayer';
+import Team from './services/adminService/team/Team';
+import AddTeam from './services/adminService/team/AddTeam';
+import EditTeam from './services/adminService/team/EditTeam';
+import Player from './services/adminService/player/Player';
+import AddPlayer from './services/adminService/player/AddPlayer';
+import EditPlayer from './services/adminService/player/EditPlayer';
 import OwnerTeam from './services/ownerService/OwnerTeam';
 import OwnerAddPlayer from './services/ownerService/OwnerAddPlayer';
 import AnotherTeamView from './services/ownerService/AnotherTeamView';
@@ -21,77 +21,17 @@ import AnotherTeamView from './services/ownerService/AnotherTeamView';
 // import OwnerId from './services/ownerService/OwnerId';
 import AdminRoutes from './services/adminService/AdminRoutes';
 import OwnerRoutes from './services/ownerService/OwnerRoutes';
-import EventBus from './components/EventBus';
-
 
 
 function App() {
-
-  const [currentUser, setCurrentUser] = useState(undefined);
-
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
-
-    if (user) {
-      setCurrentUser(user);
-    }
-
-    EventBus.on("logout", () => {
-      logOut();
-    });
-
-    return () => {
-      EventBus.remove("logout");
-    };
-  }, []);
-
-  const logOut = () => {
-    AuthService.logout();
-    setCurrentUser(undefined);
-  };
   return (
-    <div >
-      <nav className="navbar navbar-expand navbar-dark " style={{ backgroundColor: '#6abdea' }}>
+    <div className="container-fluid">
+      
+      <NavBar />
 
-        <Link to={"/home"} className="navbar-brand">
-          <img src='../images/ipl_logo.png' alt='ipl-logo' id='img' />
-        </Link>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-          <ul class="navbar-nav mr-auto">
-            <Link to={"/home"} className="navbar-brand">
-              <b>Indian Premier League</b>
-            </Link>
-          </ul>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link">
-                  <div style={{ textTransform: 'uppercase' }}>{currentUser.username}</div>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/home" className="nav-link" onClick={logOut} id='txt'>
-                  <b> Log-Out</b>
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link" id='txt'>
-                  <b>Log-In</b>
-                </Link>
-              </li>
-            </div>
-          )}
-        </div>
-      </nav>
-
-      <div className='container'>
+      <div>
         <Routes>
+          
           <Route path="/" element={<Home />} />
 
           <Route path="/home" element={<Home />} />
@@ -114,10 +54,11 @@ function App() {
             <Route path="view-new-player/:teamId" element={<OwnerAddPlayer />} />
             <Route path="other-team-players/:teamId" element={<AnotherTeamView />} />
           </Route>
+
         </Routes>
       </div>
-    </div>
 
+    </div>
   );
 }
 

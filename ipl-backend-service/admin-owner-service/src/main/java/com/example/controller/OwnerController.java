@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.entity.Player;
 import com.example.entity.Team;
-import com.example.errors.ExceptionErrorHandler;
+import com.example.exceptionHandler.ExceptionErrorHandler;
 import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class OwnerController {
         }catch (ExceptionErrorHandler e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
+        } catch (Exception e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
@@ -49,7 +49,7 @@ public class OwnerController {
             playerService.addPlayer(player);
 
             return new ResponseEntity<String>("Player added successfully !!!",HttpStatus.OK);
-        }catch (ExceptionErrorHandler e){
+        } catch (ExceptionErrorHandler e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
@@ -69,10 +69,11 @@ public class OwnerController {
             player.setTeam(null);
             playerService.addPlayer(player);
             return new ResponseEntity<String>("Player Removed from Team !!!",HttpStatus.OK);
+
         }catch (ExceptionErrorHandler e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
+        } catch (Exception e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }

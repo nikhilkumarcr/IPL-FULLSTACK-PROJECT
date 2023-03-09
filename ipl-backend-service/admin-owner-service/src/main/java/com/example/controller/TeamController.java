@@ -3,7 +3,7 @@ package com.example.controller;
 import com.example.dto.*;
 import com.example.entity.Player;
 import com.example.entity.Team;
-import com.example.errors.ExceptionErrorHandler;
+import com.example.exceptionHandler.ExceptionErrorHandler;
 import com.example.service.player.PlayerService;
 import com.example.service.team.TeamService;
 import lombok.RequiredArgsConstructor;

@@ -3,7 +3,7 @@ package com.example.controller;
 import com.example.dto.PlayerRequest;
 import com.example.dto.PlayerResponse;
 import com.example.entity.Player;
-import com.example.errors.ExceptionErrorHandler;
+import com.example.exceptionHandler.ExceptionErrorHandler;
 import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,15 @@ public class PlayerController {
                     .stream()
                     .map(player -> new PlayerResponse(player.getPlayerId(), player.getPlayerName(), player.getAge(), player.getSpecialty(), player.getImageUrl(), player.getNationality(), player.getAvailable(), player.getTeam()))
                     .collect(Collectors.toList());
-            return new ResponseEntity<List<PlayerResponse>>(playerResponses,HttpStatus.OK);
-
+            return new ResponseEntity<List<PlayerResponse>>(playerResponses, HttpStatus.OK);
         }catch (ExceptionErrorHandler e){
-
             ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Player Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
+
     }
 
 
@@ -69,36 +71,35 @@ public class PlayerController {
 
             return new ResponseEntity<PlayerResponse>(playerResponse, HttpStatus.CREATED);
 
-        }catch (ExceptionErrorHandler e){
-
+        } catch (ExceptionErrorHandler e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-
         }catch (Exception e){
-
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in player Controller !!!" + e.getMessage());
+            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in Player Controller !!!" + e.getMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/delete-player/{playerId}")
     public  ResponseEntity<?> delete(@PathVariable Integer playerId){
-        try {
+ try {
+     playerService.deletePlayer(playerId);
+     return new ResponseEntity<String>("Player deleted from the player details", HttpStatus.OK);
+ }catch (ExceptionErrorHandler e){
+     ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
+     return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+ }catch (Exception e){
+     ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Player Controller !!!" + e.getMessage());
+     return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+ }
 
-            playerService.deletePlayer(playerId);
-            return new ResponseEntity<String>("Player deleted from the player details",HttpStatus.OK);
-
-        }catch (ExceptionErrorHandler e){
-
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-
-        }
     }
 
     @GetMapping("/get-player/{playerId}")
     public ResponseEntity<?>  getTeam(@PathVariable Integer playerId){
+
         try {
+
             Player player = playerService.getPlayerById(playerId);
 
             PlayerResponse playerResponse = new PlayerResponse();
@@ -111,14 +112,15 @@ public class PlayerController {
             playerResponse.setNationality(player.getNationality());
             playerResponse.setAvailable(player.getAvailable());
 
-            return new ResponseEntity<PlayerResponse>(playerResponse,HttpStatus.OK);
-
-        }catch (ExceptionErrorHandler e) {
-
+            return new ResponseEntity<PlayerResponse>(playerResponse, HttpStatus.OK);
+        }catch (ExceptionErrorHandler e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(), HttpStatus.BAD_REQUEST);
-
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Player Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
+
     }
 
 
@@ -147,13 +149,15 @@ public class PlayerController {
             playerResponse.setAvailable(player.getAvailable());
             playerResponse.setTeam(player.getTeam());
             return new ResponseEntity<PlayerResponse>(playerResponse, HttpStatus.OK);
-
-        }catch (ExceptionErrorHandler e){
-
+        }
+        catch (ExceptionErrorHandler e){
             ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
             return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-
+        }catch (Exception e){
+            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Team Controller !!!" + e.getMessage());
+            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
         }
+
     }
 
 

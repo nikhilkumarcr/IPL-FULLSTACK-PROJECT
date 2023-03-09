@@ -1,7 +1,7 @@
 package com.example.service.team;
 
 import com.example.entity.Team;
-import com.example.errors.ExceptionErrorHandler;
+import com.example.exceptionHandler.ExceptionErrorHandler;
 import com.example.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
 
     @Override
-    public Team addTeam(Team team) {
+    public Team addTeam(Team team) throws ExceptionErrorHandler {
 
         if(team.getTeamName().isEmpty() || team.getTeamName().length()==0){
 
@@ -36,7 +36,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public void deleteTeam(Integer teamId) {
+    public void deleteTeam(Integer teamId) throws ExceptionErrorHandler {
 
         try {
             teamRepository.deleteById(teamId);
@@ -48,7 +48,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<Team> viewTeams() {
+    public List<Team> viewTeams() throws ExceptionErrorHandler {
 
         try {
             List<Team> allTeam = teamRepository.findAll();
@@ -63,7 +63,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team getTeamById(Integer teamId) {
+    public Team getTeamById(Integer teamId) throws ExceptionErrorHandler {
 
         try {
             return teamRepository.findById(teamId).get();
@@ -78,7 +78,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team getTeamId(String ownerName) {
+    public Team getTeamId(String ownerName) throws ExceptionErrorHandler {
 
         try {
             return teamRepository.getIdByName(ownerName);

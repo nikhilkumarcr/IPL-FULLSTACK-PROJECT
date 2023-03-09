@@ -1,151 +1,128 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import AuthService from "../services/authService/AuthService";
 
-import './Login.css';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {  useNavigate } from 'react-router-dom';
+import * as Yup from "yup";
+
+import { login } from '../services/authService/authSlice'
+import { clearMessage } from '../services/messageService/message';
+
+import './Login.css'
 
 
+function Login(props) {
 
-const required = (value) => {
-  if (!value) {
+    let navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
+
+    const  {message}  = useSelector((state) => state.message);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(clearMessage());
+      }, [dispatch]);
+
+
+    const handleLogin = (formValue) => {
+
+        const { username, password } = formValue;
+        setLoading(true);
+
+        dispatch(login({ username, password }))
+            .unwrap()
+            .then(() => {
+
+                const user = JSON.parse(localStorage.getItem("user"))
+                console.log(user);
+
+                if (user.roles.includes("ADMIN")) {
+                    navigate("/admin/team");
+                    window.location.reload();
+                } else if (user.roles.includes("OWNER")) {
+                    navigate("/owner/owner-page");
+                    window.location.reload();
+                }
+                else {
+                    navigate("/home")
+                    window.location.reload();
+
+                }
+            })
+            .catch(() => {
+                setLoading(false);
+            });
+    };
+
+    const validationSchema = Yup.object().shape({
+        username: Yup.string().required("This field is required!"),
+        password: Yup.string().required("This field is required!"),
+      });
+
+
+    const initialValues = {
+        username: "",
+        password: "",
+    };
+
     return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
-
-function Login()  {
-  
-  let navigate = useNavigate();
-
-  const form = useRef();
-  const checkBtn = useRef();
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    setMessage("");
-    setLoading(true);
-
-    form.current.validateAll();
-
-    if (checkBtn.current.context._errors.length === 0) {
-
-      AuthService.login(username, password).then(
-        () => {
-          const user = AuthService.getCurrentUser();
-          console.log(user);
-          if (user.roles.includes("ADMIN")) {
-            navigate("/admin/team");
-            window.location.reload();
-          } else if (user.roles.includes("OWNER")) {
-            navigate("/owner/owner-page");
-            window.location.reload();
-          }
-          else {
-            navigate("/home")
-            window.location.reload();
-
-          }
-        },
-        (error) => {
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setLoading(false);
-          setMessage("Wrong Credentials!!!");
-        }
-      );
-    } else {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="container-fluid" id="login-body">
-      <div className="row">
-
-      <div className="col-md-3"></div>
-
-   
-    <div className="col-md-6">
-      <div>
-        <div className="card card-container" id="card">
-          <h3 className="text-center"><b>Login Form</b></h3>
-
-          <Form onSubmit={handleLogin} ref={form}>
+        <div>
+            <div className="card card-container">
+        <img
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          alt="profile-img"
+          className="profile-img-card"
+        />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleLogin}
+        >
+          <Form>
             <div className="form-group">
-              <label  htmlFor="username"><b>Username : </b></label>
-              <Input
-                type="text"
-                className="form-control"
+              <label htmlFor="username">Username</label>
+              <Field name="username" type="text" className="form-control" />
+              <ErrorMessage
                 name="username"
-                value={username}
-                onChange={onChangeUsername}
-                validations={[required]}
+                component="div"
+                className="alert alert-danger"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="password"><b>Password : </b></label>
-              <Input
-                type="password"
-                className="form-control"
+              <label htmlFor="password">Password</label>
+              <Field name="password" type="password" className="form-control" />
+              <ErrorMessage
                 name="password"
-                value={password}
-                onChange={onChangePassword}
-                validations={[required]}
+                component="div"
+                className="alert alert-danger"
               />
             </div>
             <br />
+
             <div className="form-group">
-              <button className="btn btn-primary btn-block" disabled={loading}>
+              <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
                 {loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
-                <span>Log-In</span>
+                <span>Login</span>
               </button>
             </div>
-
-            {message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {message}
-                </div>
-              </div>
-            )}
-            <CheckButton style={{ display: "none" }} ref={checkBtn} />
           </Form>
-        </div>
+        </Formik>
       </div>
-    </div>
-    <div className="col-md-3"></div>
-    </div>
-    </div>
-  );
-};
+
+      {message && (
+        <div className="form-group">
+          <div className="alert alert-danger" role="alert">
+            {message}
+          </div>
+        </div>
+      )}
+        </div>
+    );
+}
 
 export default Login;

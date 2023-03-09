@@ -2,14 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link} from 'react-router-dom';
 import Url from '../../components/ApiUrl';
-import AuthService from '../authService/AuthService';
 
 import './Owner.css';
 
 function Owner() {
 
     // const { teamId } = useParams()
-    const user = AuthService.getCurrentUser();
+    const user = JSON.parse(localStorage.getItem("user"));
     const [id, setId] = useState([]);
 
     const [teams, setTeams] = useState([])
@@ -24,7 +23,8 @@ function Owner() {
 
 
     const loadUser = async () => {
-        let result = await axios.get(Url.adminUrl + "view-teams")
+        let result = await axios.get(Url.adminUrl + "view-teams");
+        console.log(result.data)
         setTeams(result.data)
     }
 
@@ -57,7 +57,6 @@ function Owner() {
                         <div className='col-md-4'>
                             <div className='text-right'>
                                 <Link type="button" to={`/owner/owner-team/${id.teamId}`} className="btn btn-outline-primary m-2">My Team</Link>
-                                {/* <Link type="button" to={`/owner/owner-team`} className="btn btn-outline-danger m-2">Back-To-Home</Link> */}
                             </div>
                         </div>
                     </div>
