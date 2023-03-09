@@ -4,7 +4,6 @@ import { Outlet} from 'react-router-dom';
    
    export default function AdminRoutes() {
 
-
     if(JSON.parse(localStorage.getItem('user')).roles[0]==='ADMIN'){
         return <Outlet/>
     }

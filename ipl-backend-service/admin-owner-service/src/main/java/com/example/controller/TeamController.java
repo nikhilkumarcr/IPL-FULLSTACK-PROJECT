@@ -114,7 +114,8 @@ public class TeamController {
         try {
             Team team = teamService.getTeamById(teamId);
 
-            TeamRequest teamResponse = new TeamRequest();
+            TeamResponse teamResponse = new TeamResponse();
+            teamResponse.setTeamId(team.getTeamId());
             teamResponse.setTeamName(team.getTeamName());
             teamResponse.setCity(team.getCity());
             teamResponse.setState(team.getState());

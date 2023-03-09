@@ -3,7 +3,6 @@ import authAPI from "./authAPI";
 
 
 const user = JSON.parse(localStorage.getItem("user"));
-//console.log(user.roles)
 
 export const login = createAsyncThunk(
   "auth/login",

@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import EventBus from "./EventBus";
-
 import { logout } from "../services/authService/authSlice";
 import { useCallback, useEffect } from "react";
-
 import './NavBar.css'
 
 

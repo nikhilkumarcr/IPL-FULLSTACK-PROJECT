@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import './formStyle.css';
-import Url from '../../../components/ApiUrl';
 import { useDispatch } from 'react-redux';
 import { getTeamByTeamId, updateTeam } from './teamSlice';
 
@@ -15,19 +13,12 @@ export default function EditTeam() {
 
     const {teamId}=useParams()
 
-    const[team,setTeam]=useState({})
-
-   //  const getTeam= async ()=>{
-
-   //      const result=await axios.get(Url.adminUrl + `get-team/${teamId}`)
-   //      setTeam(result.data)
-   //  }
+    const[team,setTeam]=useState({});
 
     useEffect(()=>{
 
       dispatch(getTeamByTeamId(teamId))
       .then((response)=>{
-         console.log(response);
          setTeam(response.payload);
       })
 
@@ -39,7 +30,7 @@ export default function EditTeam() {
     }
     const onSubmit= async (e)=>{
         e.preventDefault()
-        dispatch(updateTeam({teamId,team}))
+        dispatch(updateTeam(team))
         navigate('/admin/team')
     } 
 

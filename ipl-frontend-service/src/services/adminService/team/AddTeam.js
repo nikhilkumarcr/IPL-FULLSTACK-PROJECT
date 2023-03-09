@@ -1,11 +1,8 @@
 import React, { useRef, useState } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
-
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
 import './formStyle.css';
 import { useDispatch } from 'react-redux';
 import { addTeam } from './teamSlice';

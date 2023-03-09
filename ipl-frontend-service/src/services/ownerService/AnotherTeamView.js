@@ -11,7 +11,6 @@ export default function AnotherTeamView() {
     const dispatch = useDispatch();
 
     const players = useSelector((state)=> state.owner.ownerTeamList);
-    //console.log(players)
 
     useEffect(() => {
        dispatch(viewPlayersByTeamId(teamId))

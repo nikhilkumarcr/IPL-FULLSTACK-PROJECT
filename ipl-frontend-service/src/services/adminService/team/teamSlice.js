@@ -23,8 +23,8 @@ export const addTeam = createAsyncThunk(
 
 export const updateTeam = createAsyncThunk(
   "team/update-team",
-  async ({teamId, payload}) => {
-    const response = await axios.post(Url.adminUrl + `update-team/${teamId}`, payload);
+  async (payload) => {
+    const response = await axios.post(Url.adminUrl + `update-team/${payload.teamId}`, payload);
     return response.data;
   }
 );
@@ -41,7 +41,6 @@ export const getTeamByTeamId = createAsyncThunk(
   "team/get-team",
   async (teamId) => {
     const response = await axios.get(Url.adminUrl + `get-team/${teamId}`);
-    console.log(response.data);
     return response.data;
   }
 );
@@ -51,7 +50,6 @@ export const getTeamIdByOwnername = createAsyncThunk(
   "team/get-teamId",
   async (ownerName)=>{
     const response = await axios.get(Url.adminUrl + `get-teamId/${ownerName}`);
-    console.log(response.data);
     return response.data;
   }
 );

@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './form.css';
-import Url from '../../../components/ApiUrl';
+import { useDispatch } from 'react-redux';
+import { getPlayerByPlayerId, updatePlayer } from './playerSlice';
 
 
 export default function EditPlayer() {
 
-    let navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const { playerId } = useParams()
+    const dispatch = useDispatch();
 
-    const [player, setPlayer] = useState({})
+    const { playerId } = useParams();
 
-    const getPlayer = async () => {
-
-        const result = await axios.get(Url.adminUrl + `get-player/${playerId}`)
-        setPlayer(result.data)
-    }
+    const [player, setPlayer] = useState({});
 
     useEffect(() => {
-        getPlayer();
+       dispatch(getPlayerByPlayerId(playerId))
+       .then((response)=>{
+        setPlayer(response.payload)
+       })
     }, [])
 
     const onInputChange = (e) => {
-        setPlayer({ ...player, [e.target.name]: e.target.value })
+        setPlayer({ ...player, [e.target.name]: e.target.value });
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        await axios.post(Url.adminUrl + `update-player/${playerId}`, player)
+        dispatch(updatePlayer(player))
         navigate('/admin/player')
     }
 

@@ -1,12 +1,10 @@
 import React, { useRef, useState } from 'react'
-
 import { Link, useNavigate } from 'react-router-dom'
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
 import CheckButton from "react-validation/build/button";
 import './form.css';
-
 import { useDispatch } from 'react-redux';
 import { addPlayer } from './playerSlice';
 

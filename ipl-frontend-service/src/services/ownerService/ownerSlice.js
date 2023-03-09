@@ -9,7 +9,6 @@ export const viewPlayersByTeamId = createAsyncThunk(
     "owner/view-players",
     async (teamId)=>{
         const response = await axios.get(Url.ownerUrl + `view-players/${teamId}`);
-        console.log(response.data);
         return  response.data;
     }
 );
@@ -17,11 +16,8 @@ export const viewPlayersByTeamId = createAsyncThunk(
 
 export const addPlayerToTeam = createAsyncThunk(
     "owner/add-player",
-
     async ({teamId,playerId})=>{
-
         const response = await axios.post(Url.ownerUrl + `add-player/${teamId}/${playerId}`);
-        console.log(response)
         return response.data;
 
     }
@@ -34,7 +30,6 @@ export const deletePlayerFromTeam = createAsyncThunk(
         await axios.delete(Url.ownerUrl + `delete-player/${playerId}`);
         return playerId;
     }
-
 );
 
 const initialState = {

@@ -12,9 +12,6 @@ export default function Team() {
 
    const teams = useSelector((state) => state.team.teamsList);
 
-   console.log(teams)
-
-
     useEffect(() => {
 
       dispatch(viewAllTeams());
