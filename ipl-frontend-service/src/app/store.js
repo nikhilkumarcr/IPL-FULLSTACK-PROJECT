@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../services/authService/authSlice';
 import messageReducer from '../services/messageService/message';
 import teamReducer from '../services/adminService/team/teamSlice';
-import playerReducer from '../services/adminService/player/playerSlice'
+import playerReducer from '../services/adminService/player/playerSlice';
+import ownerReducer from '../services/ownerService/ownerSlice';
 
 export const store = configureStore({
   
@@ -10,6 +11,7 @@ export const store = configureStore({
     auth : authReducer,
     message : messageReducer,
     team : teamReducer,
-    player : playerReducer
+    player : playerReducer,
+    owner : ownerReducer
   },
 });

@@ -6,7 +6,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import './FormStyle.css';
+import './formStyle.css';
 import { useDispatch } from 'react-redux';
 import { addTeam } from './teamSlice';
 
@@ -33,14 +33,19 @@ export default function AddTeam() {
    const [team, setTeam] = useState()
 
    const onInputChange = (e) => {
-      setTeam({ ...team, [e.target.name]: e.target.value })
+
+      setTeam({ ...team, [e.target.name]: e.target.value });
+
    }
 
    const handleAdd = async (e) => {
-      e.preventDefault()
+      e.preventDefault();
+
       form.current.validateAll();
-      dispatch(addTeam(team))
-      navigate('/admin/team')
+
+      dispatch(addTeam(team));
+
+      navigate('/admin/team');
    }
 
 
@@ -114,7 +119,7 @@ export default function AddTeam() {
 
                         <br />
                         <div className='d-flex justify-content-around'>
-                           <button type="submit" className="btn btn-outline-success"><b>Add-Team</b></button>
+                           <button type="button" className="btn btn-outline-success"><b>Add-Team</b></button>
                            <Link type='button' className='btn btn-outline-danger' to={"/admin/team"}><b>Cancel</b></Link>
                         </div>
                      </div>

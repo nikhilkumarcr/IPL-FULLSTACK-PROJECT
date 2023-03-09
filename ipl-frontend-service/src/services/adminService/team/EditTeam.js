@@ -1,27 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import './FormStyle.css';
+import './formStyle.css';
 import Url from '../../../components/ApiUrl';
+import { useDispatch } from 'react-redux';
+import { getTeamByTeamId, updateTeam } from './teamSlice';
 
 
 export default function EditTeam() {
 
-    let navigate = useNavigate()
+    let navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const {teamId}=useParams()
 
     const[team,setTeam]=useState({})
 
-    const getTeam= async ()=>{
+   //  const getTeam= async ()=>{
 
-        const result=await axios.get(Url.adminUrl + `get-team/${teamId}`)
-        setTeam(result.data)
-    }
+   //      const result=await axios.get(Url.adminUrl + `get-team/${teamId}`)
+   //      setTeam(result.data)
+   //  }
 
     useEffect(()=>{
 
-        getTeam();
+      dispatch(getTeamByTeamId(teamId))
+      .then((response)=>{
+         console.log(response);
+         setTeam(response.payload);
+      })
+
     },[])
 
     const onInputChange=(e)=>{
@@ -30,7 +39,7 @@ export default function EditTeam() {
     }
     const onSubmit= async (e)=>{
         e.preventDefault()
-        await axios.post(Url.adminUrl + `update-team/${teamId}`,team)
+        dispatch(updateTeam({teamId,team}))
         navigate('/admin/team')
     } 
 

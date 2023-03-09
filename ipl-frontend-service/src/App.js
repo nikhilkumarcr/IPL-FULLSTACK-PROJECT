@@ -7,20 +7,20 @@ import Login from './components/Login';
 import { NavBar } from './components/NavBar';
 
 // import Admin from './services/adminService/Admin';
-import Owner from './services/ownerService/Owner';
-import Team from './services/adminService/team/Team';
-import AddTeam from './services/adminService/team/AddTeam';
-import EditTeam from './services/adminService/team/EditTeam';
-import Player from './services/adminService/player/Player';
-import AddPlayer from './services/adminService/player/AddPlayer';
-import EditPlayer from './services/adminService/player/EditPlayer';
-import OwnerTeam from './services/ownerService/OwnerTeam';
-import OwnerAddPlayer from './services/ownerService/OwnerAddPlayer';
-import AnotherTeamView from './services/ownerService/AnotherTeamView';
+import Owner from './services/ownerService/owner';
+import Team from './services/adminService/team/team';
+import AddTeam from './services/adminService/team/addTeam';
+import EditTeam from './services/adminService/team/editTeam';
+import Player from './services/adminService/player/player';
+import AddPlayer from './services/adminService/player/addPlayer';
+import EditPlayer from './services/adminService/player/editPlayer';
+import OwnerTeam from './services/ownerService/ownerTeam';
+import OwnerAddPlayer from './services/ownerService/ownerAddPlayer';
+import AnotherTeamView from './services/ownerService/anotherTeamView';
 
 // import OwnerId from './services/ownerService/OwnerId';
-import AdminRoutes from './services/adminService/AdminRoutes';
-import OwnerRoutes from './services/ownerService/OwnerRoutes';
+import AdminRoutes from './services/adminService/adminRoutes';
+import OwnerRoutes from './services/ownerService/ownerRoutes';
 
 
 function App() {

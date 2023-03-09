@@ -1,40 +1,33 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link} from 'react-router-dom';
-import Url from '../../components/ApiUrl';
 
-import './Owner.css';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link} from 'react-router-dom';
+
+import {  getTeamIdByOwnername, viewAllTeams } from '../adminService/team/teamSlice';
+
+import './owner.css';
 
 function Owner() {
 
-    // const { teamId } = useParams()
+    const dispatch = useDispatch();
+
     const user = JSON.parse(localStorage.getItem("user"));
-    const [id, setId] = useState([]);
 
-    const [teams, setTeams] = useState([])
+    const teams = useSelector((state) => state.team.teamsList);
 
-    useEffect(() => {
-        loadUser()
-    }, [])
+    const teamData = useSelector((state)=>state.team.team);
 
     useEffect(() => {
-        getid()
-    }, [])
 
+        dispatch(viewAllTeams());
 
-    const loadUser = async () => {
-        let result = await axios.get(Url.adminUrl + "view-teams");
-        console.log(result.data)
-        setTeams(result.data)
-    }
+    }, [dispatch]);
 
-    const getid = () => {
-        axios.get(Url.adminUrl + `get-id/${user.username}`).then((response) => {
-            console.log(response)
-            setId(response.data)
+    useEffect(() => {
 
-        })
-    }
+       dispatch(getTeamIdByOwnername(user.username));
+
+    }, []);
 
     return (
 
@@ -44,11 +37,11 @@ function Owner() {
                     <hr />
                     <div className='row'>
                         <div className='col-md-8'>
-                            <div key={teams.teamId}>
+                            <div>
                                 {teams.map((team) => {
-                                    if (team.teamId === id.teamId) {
+                                    if (team.teamId === teamData.teamId) {
                                         return (
-                                            <div className='display-4'><b>{team.teamName}</b></div>
+                                            <div className='display-4' key={team.teamId}><b>{team.teamName}</b></div>
                                         )
                                     }
                                 })}
@@ -56,7 +49,7 @@ function Owner() {
                         </div>
                         <div className='col-md-4'>
                             <div className='text-right'>
-                                <Link type="button" to={`/owner/owner-team/${id.teamId}`} className="btn btn-outline-primary m-2">My Team</Link>
+                                <Link type="button" to={`/owner/owner-team/${teamData.teamId}`} className="btn btn-outline-primary m-2">My Team</Link>
                             </div>
                         </div>
                     </div>
@@ -73,7 +66,7 @@ function Owner() {
                         <table className="table shadow">
                             <thead className="thead-dark">
                                 <tr className='table-dark'>
-                                    {/* <th>Team Images</th> */}
+                                    <th>Team Images</th>
                                     <th>Team Name</th>
                                     <th>Owner Name</th>
                                     <th>City</th>
@@ -84,10 +77,10 @@ function Owner() {
                             <tbody>
                                 {
                                     teams.map((team) => {
-                                        if (team.ownerId !== id.teamId) {
+                                        if (team.ownerId !== teamData.teamId) {
                                             return (
-                                                <tr className='table-warning'>
-                                                    {/* <td><img id='team-img' src={team.teamUrl} alt='team' /></td> */}
+                                                <tr className='table-warning' key={team.teamId}>
+                                                    <td><img id='team-img' src={team.teamUrl} alt='team' /></td>
                                                     <td><b>{team.teamName}</b></td>
                                                     <td style={{ textTransform: 'uppercase' }}><b>{team.ownerName}</b></td>
                                                     <td><b>{team.city}</b></td>

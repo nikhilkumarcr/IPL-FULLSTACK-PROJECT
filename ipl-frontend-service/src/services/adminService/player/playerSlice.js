@@ -50,7 +50,8 @@ export const deletePlayer = createAsyncThunk(
 const initialState = {
 
     playerStatus: "",
-    playersList: []
+    playersList: [],
+    player : {}
   };
 
   const playerSlice = createSlice({

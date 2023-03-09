@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import {  useParams } from 'react-router-dom';
-import Url from '../../components/ApiUrl';
+import { useDispatch, useSelector } from 'react-redux';
+import { viewPlayersByTeamId } from './ownerSlice';
 
 
 export default function AnotherTeamView() {
 
-    const { teamId } = useParams()
-    const [players, setPlayers] = useState([])
+    const { teamId } = useParams();
 
-    const loadPlayer = async () => {
+    const dispatch = useDispatch();
 
-        const result = await axios.get(Url.ownerUrl + `view-players/${teamId}`)
-        setPlayers(result.data)
-    }
+    const players = useSelector((state)=> state.owner.ownerTeamList);
+    //console.log(players)
 
     useEffect(() => {
-        loadPlayer();
+       dispatch(viewPlayersByTeamId(teamId))
     }, [])
 
     return (
@@ -54,7 +52,7 @@ export default function AnotherTeamView() {
                             {
                                 players.map((player) => {
                                     return (
-                                        <tr className='table-secondary text-dark'>
+                                        <tr className='table-secondary text-dark' key={player.playerId}>
                                             {/* <td><img id='player-img' src={player.imageUrl} alt='player' /></td> */}
                                             <td>{player.playerName}</td>
                                             <td>{player.age}</td>

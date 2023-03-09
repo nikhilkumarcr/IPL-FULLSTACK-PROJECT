@@ -23,12 +23,11 @@ export const addTeam = createAsyncThunk(
 
 export const updateTeam = createAsyncThunk(
   "team/update-team",
-  async ( payload) => {
-    const response = await axios.post(Url.adminUrl + `update-team/${payload.teamId}`, payload);
+  async ({teamId, payload}) => {
+    const response = await axios.post(Url.adminUrl + `update-team/${teamId}`, payload);
     return response.data;
   }
-
-)
+);
 
 export const deleteTeam = createAsyncThunk(
   "team/delete-team",
@@ -45,12 +44,23 @@ export const getTeamByTeamId = createAsyncThunk(
     console.log(response.data);
     return response.data;
   }
-)
+);
+
+
+export const getTeamIdByOwnername = createAsyncThunk(
+  "team/get-teamId",
+  async (ownerName)=>{
+    const response = await axios.get(Url.adminUrl + `get-teamId/${ownerName}`);
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 
 const initialState = {
   teamStatus: "",
-  teamsList: []
+  teamsList: [],
+  team : {},
 };
 
 
@@ -95,6 +105,24 @@ const teamSlice = createSlice({
     builder.addCase(deleteTeam.fulfilled, (state, action) => {
       state.teamStatus = "idle";
       state.teamsList = state.teamsList.filter((team) => team.id !== action.payload);
+    });
+
+    builder.addCase(getTeamByTeamId.pending, (state) => {
+      state.teamStatus = "pending";
+    });
+
+    builder.addCase(getTeamByTeamId.fulfilled, (state, action) => {
+      state.teamStatus = "idle";
+      state.team = action.payload;
+    });
+
+    builder.addCase(getTeamIdByOwnername.pending, (state) => {
+      state.teamStatus = "pending";
+    });
+
+    builder.addCase(getTeamIdByOwnername.fulfilled, (state, action) => {
+      state.teamStatus = "idle";
+      state.team = action.payload;
     });
 
   }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import './Team.css';
+import './team.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTeam, viewAllTeams } from './teamSlice';
 
@@ -11,6 +11,7 @@ export default function Team() {
    const dispatch = useDispatch();
 
    const teams = useSelector((state) => state.team.teamsList);
+
    console.log(teams)
 
 

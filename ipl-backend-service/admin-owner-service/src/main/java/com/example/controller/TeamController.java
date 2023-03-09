@@ -157,7 +157,7 @@ public class TeamController {
     }
 
 
-    @GetMapping("/get-id/{ownerName}")
+    @GetMapping("/get-teamId/{ownerName}")
     public ResponseEntity<?> getTeamId(@PathVariable String ownerName){
 
         try {

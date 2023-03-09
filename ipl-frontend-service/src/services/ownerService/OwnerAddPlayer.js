@@ -1,50 +1,55 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useParams, useLocation, Link } from 'react-router-dom'
-import './OwerAddPlayer.css';
-import Url from '../../components/ApiUrl';
+import { useParams, useLocation, Link} from 'react-router-dom'
+import './owerAddPlayer.css';
+import { useDispatch } from 'react-redux';
+import { viewAllPlayers } from '../adminService/player/playerSlice';
+import { addPlayerToTeam } from './ownerSlice';
 
 
 export default function OwnerAddPlayer() {
 
 
-    const [players, setPlayers] = useState([])
+    const [players, setPlayers] = useState([]);
 
-    const { teamId } = useParams()
+    const { teamId } = useParams();
 
-    const location = useLocation()
+    const location = useLocation();
 
-    const totalPlayers = location.state.data.total
+    const dispatch = useDispatch();
 
-    const foreignPlayer = location.state.data.foreign
+    const totalPlayers = location.state.data.total;
+
+    const foreignPlayer = location.state.data.foreign;
 
     useEffect(() => {
-        loadUser()
-    }, [])
 
-    const loadUser = async () => {
-        let result = await axios.get(Url.adminUrl + "view-players")
-        //console.log(result);
-        setPlayers(result.data.filter(e => e.available === true))
-        //  console.log(result)
-    }
+        dispatch(viewAllPlayers())
+        .then((result)=>{
+            setPlayers(result.payload.filter(e => e.available === true));
+        })
+    }, [dispatch])
+
 
     const onAdding = async (e, playerId, nationality) => {
 
-        e.preventDefault()
+        e.preventDefault();
+        console.log(playerId);
 
         if (totalPlayers < 15) {
 
             if (nationality !== 'India') {
 
                 if (foreignPlayer < 6) {
-                    await axios.post(Url.ownerUrl + `add-player/${teamId}/${playerId}`)
-                    window.location.reload(false)
+
+                    dispatch(addPlayerToTeam({teamId,playerId}));
+                    window.location.reload(false);
+                    
                 }
             }
             else {
-                await axios.post(Url.ownerUrl + `add-player/${teamId}/${playerId}`)
-                window.location.reload(false)
+
+                dispatch(addPlayerToTeam({teamId,playerId}));
+                window.location.reload(false);
             }
         }
 
@@ -91,7 +96,7 @@ export default function OwnerAddPlayer() {
                             {
                                 players.map((player) => {
                                     return (
-                                        <tr className='table-success text-dark'>
+                                        <tr className='table-success text-dark' key={player.playerId}>
                                             {/* <td><img id='player-img' src={player.imageUrl} alt='player' /></td> */}
                                             <td>{player.playerName}</td>
                                             <td>{player.age}</td>
