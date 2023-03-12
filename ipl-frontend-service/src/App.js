@@ -23,11 +23,12 @@ import OwnerRoutes from './services/ownerService/ownerRoutes';
 
 function App() {
   return (
-    <div className="container-fluid">
+    <div className="App">
       
       <NavBar />
 
-      <div>
+
+      <div className='container-fluid'>
         <Routes>
           
           <Route path="/" element={<Home />} />
@@ -36,7 +37,6 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/admin" element={<AdminRoutes />}>
-            {/* <Route path="admin-view" element={<Admin />} /> */}
             <Route path="team" element={<Team />} />
             <Route path="add-team" element={<AddTeam />} />
             <Route path="edit-team/:teamId" element={<EditTeam />} />
@@ -46,7 +46,6 @@ function App() {
           </Route>
 
           <Route path="/owner" element={<OwnerRoutes />}>
-            {/* <Route path="owner-view" element={<OwnerId />} /> */}
             <Route path="owner-page" element={<Owner />} />
             <Route path="owner-team/:teamId" element={<OwnerTeam />} />
             <Route path="view-new-player/:teamId" element={<OwnerAddPlayer />} />

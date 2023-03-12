@@ -1,6 +1,13 @@
+
+body{
+    background-color: rgb(173, 168, 164);
+}
+
+
 #team-img{
     border-style:solid ;
     width: 100px;
     height: 80px;
     border-radius: 50%;
 }
+

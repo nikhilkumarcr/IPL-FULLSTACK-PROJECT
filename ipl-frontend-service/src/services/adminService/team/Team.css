@@ -1,4 +1,6 @@
-
+body{
+    background-color: rgb(234, 247, 138);
+}
 #card-body{
    
     width: 20rem;
@@ -9,6 +11,7 @@
     border-color: black;
     border-radius: 1rem;
     text-emphasis-color:white ;
+    background-color: rgb(243, 204, 249);
 }
 
 #card-img{

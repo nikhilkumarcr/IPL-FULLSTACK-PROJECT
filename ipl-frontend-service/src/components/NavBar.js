@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import EventBus from "./EventBus";
 import { logout } from "../services/authService/authSlice";
 import { useCallback, useEffect } from "react";
-import './NavBar.css'
+import './NavBar.css';
 
 
 
@@ -29,7 +29,7 @@ export const NavBar = () => {
 
     return (
 
-        <div className="container-fluid">
+        <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
 
                 <Link to={"/home"} className="navbar-brand">
@@ -48,14 +48,14 @@ export const NavBar = () => {
                 {currentUser ? (
                     <div className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link to={"/profile"} className="nav-link">
-                                <div style={{ textTransform: 'uppercase' }}>
-                                    {currentUser.username}
+                            <Link  className="nav-link">
+                                <div style={{ textTransform: 'uppercase' }} >
+                                    <b>{currentUser.username}</b>
                                 </div>
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <a href="/login" className="nav-link" onClick={logOut}>
+                            <a href="/login" className="nav-link" onClick={logOut} >
                                 <b>Log-Out</b>
                             </a>
                         </li>
@@ -63,7 +63,7 @@ export const NavBar = () => {
                 ) : (
                     <div className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link to={"/login"} className="nav-link">
+                            <Link to={"/login"} className="nav-link" >
                                 <b>Log-in</b>
                             </Link>
                         </li>

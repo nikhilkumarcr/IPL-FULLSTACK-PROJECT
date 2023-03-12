@@ -44,9 +44,9 @@ export default function OwnerTeam() {
                     <div className='display-5'><b>Team Owner Page View</b> </div>
                 </div>
                 <div className='col-md-5'>
-                    <div className='text-right'>
-                        <Link type="button" state={{ data: finder() }} className="btn btn-outline-warning m-5" to={`/owner/view-new-player/${teamId}`}>Add-Player</Link>
-                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner/owner-page`}>Back-To-Owner</Link>
+                    <div className='text-center'>
+                        <Link type="button" state={{ data: finder() }} className="btn btn-dark m-5" to={`/owner/view-new-player/${teamId}`}>Add-Player</Link>
+                        <Link type="button" className="btn btn-danger m-5" to={`/owner/owner-page`}>Back-To-Owner</Link>
 
                     </div>
                 </div>
@@ -56,39 +56,41 @@ export default function OwnerTeam() {
 
             <div>
                 <div className='row'>
-                    <div className='col-md-12'>
+                <div className='col-md-1'></div>
+                    <div className='col-md-10'>
                         <div className='d-flex flex-wrap'>
+                        <table className="table table-bordered table-hover">
+                        <thead className="thead-dark">
+                            <tr className='table table-dark'>
+                                {/* <th>Team Images</th> */}
+                                <th >PlayerName</th>
+                                <th >Age</th>
+                                <th >Country</th>
+                                <th >Speciality</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {
                                 players.map((player) => {
                                     return (
-
-                                        <Card id='card-body2' key={player.playerId}>
-                                            <div className='text-center'>
-                                                <br />
-                                                {/* <Card.Img id='card-img2' variant='top' src={player.imageUrl} /> */}
-                                                <Card.Body>
-                                                    <hr />
-                                                    <Card.Title><b>{player.playerName}</b></Card.Title>
-                                                    <hr />
-                                                    <div className='d-flex justify-content-around'>
-                                                        <Card.Text>Age :{player.age}</Card.Text>
-                                                        <Card.Text>{player.specialty}</Card.Text>
-                                                    </div>
-                                                    <hr />
-                                                </Card.Body>
-                                                <div className='text-center'>
-                                                    <button type="button" onClick={(e) => onDelete(player.playerId)} class="btn btn-outline-danger">Remove</button>
-                                                </div>
-                                                <br />
-                                            </div>
-
-                                        </Card>
+                                        <tr className='table-success text-dark' key={player.playerId}>
+                                            {/* <td><img id='player-img' src={player.imageUrl} alt='player' /></td> */}
+                                            <td>{player.playerName}</td>
+                                            <td>{player.age}</td>
+                                            <td>{player.nationality}</td>
+                                            <td>{player.specialty}</td>
+                                            <td><button type="button" onClick={(e) => onDelete(player.playerId)} class="btn btn-danger">Remove</button></td>
+                                        </tr>
                                     )
-                                })}
-
+                                })
+                            }
+                        </tbody>
+                    </table>
 
                         </div>
                     </div>
+                    <div className='col-md-1'></div>
                 </div>
             </div>
         </div>

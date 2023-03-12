@@ -27,8 +27,8 @@ export default function EditPlayer() {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        dispatch(updatePlayer(player))
-        navigate('/admin/player')
+        dispatch(updatePlayer(player));
+        navigate('/admin/player');
     }
 
     return (

@@ -15,6 +15,7 @@ export default function Player() {
 
         dispatch(viewAllPlayers());
 
+
     }, [dispatch]);
 
     const handleDelete = (playerId)=>{

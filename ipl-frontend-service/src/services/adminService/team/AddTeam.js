@@ -36,13 +36,13 @@ export default function AddTeam() {
    }
 
    const handleAdd = async (e) => {
-      e.preventDefault();
+      e.preventDefault()
 
       form.current.validateAll();
 
-      dispatch(addTeam(team));
+      dispatch(addTeam(team))
 
-      navigate('/admin/team');
+      navigate('/admin/team')
    }
 
 

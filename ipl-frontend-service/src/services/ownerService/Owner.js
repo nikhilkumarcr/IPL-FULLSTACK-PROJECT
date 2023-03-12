@@ -48,8 +48,8 @@ function Owner() {
                             </div>
                         </div>
                         <div className='col-md-4'>
-                            <div className='text-right'>
-                                <Link type="button" to={`/owner/owner-team/${teamData.teamId}`} className="btn btn-outline-primary m-2">My Team</Link>
+                            <div className='text-center'>
+                                <Link type="button" to={`/owner/owner-team/${teamData.teamId}`} className="btn btn-success m-2">My Team</Link>
                             </div>
                         </div>
                     </div>

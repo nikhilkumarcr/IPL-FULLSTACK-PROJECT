@@ -25,6 +25,7 @@ export default function OwnerAddPlayer() {
 
         dispatch(viewAllPlayers())
         .then((result)=>{
+            console.log(result)
             setPlayers(result.payload.filter(e => e.available === true));
         })
     }, [dispatch])
@@ -64,19 +65,18 @@ export default function OwnerAddPlayer() {
            
                 <div className='col-8'>
                     <br />
-                    <h2> <b>Available Player List</b></h2>
+                    <div className='display-5'><b>Available Player List</b> </div>
                 </div>
 
                 <div className='col-4'>
-                    <div className='text-right'>
-                        <Link type="button" className="btn btn-outline-danger m-5" to={`/owner/owner-team/${teamId}`}>Back-To-Owner</Link>
+                    <div className='text-center'>
+                        <Link type="button" className="btn btn-danger m-5" to={`/owner/owner-team/${teamId}`}>Back-To-Owner</Link>
                     </div>
                 </div>
 
             </div>
             <hr />
             </div>
-            <br />
             <br />
             <div className='row'>
                 <div className='col-md-1'></div>
