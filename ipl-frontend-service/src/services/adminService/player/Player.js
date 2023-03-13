@@ -37,8 +37,8 @@ export default function Player() {
                 </div>
                 <div className='col-md-3'>
                     <div className='text-right'>
-                        <Link className="btn btn-outline-success btn-sm m-2" to='/admin/add-player'>Add-Player</Link>
-                        <Link className="btn btn-outline-dark btn-sm m-2" to='/admin/team'>Back-To-Team</Link>
+                        <Link className="btn btn-success btn-sm m-2" to='/admin/add-player'>Add-Player</Link>
+                        <Link className="btn btn-dark btn-sm m-2" to='/admin/team'>Back-To-Team</Link>
 
                     </div>
 
@@ -64,8 +64,8 @@ export default function Player() {
                                                     <Card.Title><b>{player.playerName}</b></Card.Title>
                                                     <hr />
                                                     <div className='d-flex justify-content-around'>
-                                                        <Card.Text>Age :{player.age}</Card.Text>
-                                                        <Card.Text>Role :{player.specialty}</Card.Text>
+                                                        <Card.Text><b>Age :{player.age}</b></Card.Text>
+                                                        <Card.Text><b>Role :{player.specialty}</b></Card.Text>
                                                     </div>
                                                     <hr />
                                                 </Card.Body>

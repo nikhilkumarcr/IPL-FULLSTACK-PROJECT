@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="team_details")
+@Table(name="team_lists")
 @JsonIgnoreProperties(value={"handler","hibernateLazyInitializer","FieldHandler"})
 public class Team {
     @Id

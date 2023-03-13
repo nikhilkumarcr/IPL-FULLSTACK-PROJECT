@@ -63,7 +63,7 @@ function Owner() {
                 <div className='row'>
                     <div className='col-md-1'></div>
                     <div className='col-md-10'>
-                        <table className="table shadow">
+                        <table className="table shadow text-center">
                             <thead className="thead-dark">
                                 <tr className='table-dark'>
                                     <th>Team Images</th>

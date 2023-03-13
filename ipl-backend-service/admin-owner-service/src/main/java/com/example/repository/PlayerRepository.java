@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface PlayerRepository extends JpaRepository<Player,Integer> {
 
-    @Query(value="select * from player_details where team_id=?",nativeQuery = true)
+    @Query(value="select * from player_lists where team_id=?",nativeQuery = true)
     public List<Player> getByTeamId(Integer teamId);
 }

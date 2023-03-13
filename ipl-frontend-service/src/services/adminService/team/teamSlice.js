@@ -14,7 +14,9 @@ export const viewAllTeams = createAsyncThunk(
 export const addTeam = createAsyncThunk(
   "team/add-team",
   async (payload) => {
+    console.log(payload)
     const response = await axios.post(Url.adminUrl + "add-team", payload);
+    console.log(response.data)
     return response.data;
 
   }
@@ -83,7 +85,7 @@ const teamSlice = createSlice({
 
     builder.addCase(addTeam.fulfilled, (state, action) => {
       state.teamStatus = "idle";
-      state.teamsList.push(state.action.payload);
+      state.teamsList.push(action.payload);
     });
 
     builder.addCase(updateTeam.pending, (state) => {

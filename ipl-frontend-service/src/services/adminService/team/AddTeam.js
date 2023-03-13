@@ -36,9 +36,10 @@ export default function AddTeam() {
    }
 
    const handleAdd = async (e) => {
+
       e.preventDefault()
 
-      form.current.validateAll();
+      form.current.validateAll()
 
       dispatch(addTeam(team))
 
@@ -54,7 +55,6 @@ export default function AddTeam() {
             <div className='col-md-8'>
                <div className='container w-50 shadow' id="team-card">
                   <h3><b>Add Team Form : </b></h3>
-
 
                   <Form onSubmit={(e) => handleAdd(e)} ref={form}>
 
@@ -116,7 +116,7 @@ export default function AddTeam() {
 
                         <br />
                         <div className='d-flex justify-content-around'>
-                           <button type="button" className="btn btn-outline-success"><b>Add-Team</b></button>
+                           <button type="submit" className="btn btn-outline-success"><b>Add-Team</b></button>
                            <Link type='button' className='btn btn-outline-danger' to={"/admin/team"}><b>Cancel</b></Link>
                         </div>
                      </div>
