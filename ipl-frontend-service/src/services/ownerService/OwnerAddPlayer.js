@@ -81,7 +81,7 @@ export default function OwnerAddPlayer() {
             <div className='row'>
                 <div className='col-md-1'></div>
                 <div className='col-md-10'>
-                    <table className="table table-bordered table-hover">
+                    <table className="table table-bordered table-hover text-center">
                         <thead className="thead-dark">
                             <tr className='table table-dark'>
                                 {/* <th>Team Images</th> */}
@@ -102,7 +102,7 @@ export default function OwnerAddPlayer() {
                                             <td>{player.age}</td>
                                             <td>{player.nationality}</td>
                                             <td>{player.specialty}</td>
-                                            <td><button type="button" className="btn btn-outline-warning" onClick={(e) => onAdding(e, player.playerId, player.nationality)}>Add</button></td>
+                                            <td><button type="button" className="btn btn-sm btn-outline-dark" onClick={(e) => onAdding(e, player.playerId, player.nationality)}>Add</button></td>
                                         </tr>
                                     )
                                 })

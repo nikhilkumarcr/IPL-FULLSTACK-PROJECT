@@ -37,7 +37,7 @@ export default function AnotherTeamView() {
             <div className='row'>
                 <div className='col-md-1'></div>
                 <div className='col-md-10'>
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered table-hover text-center">
                         <thead className="thead-dark">
                             <tr className='table table-dark'>
                                 {/* <th>Team Images</th> */}
