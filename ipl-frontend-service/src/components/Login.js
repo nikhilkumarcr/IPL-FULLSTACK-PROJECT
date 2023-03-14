@@ -1,11 +1,11 @@
 
 import { useDispatch } from 'react-redux';
-import React, {  useRef, useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import {login} from '../services/authService/authSlice'
+import { login } from '../services/authService/authSlice'
 import './Login.css';
 
 
@@ -19,8 +19,8 @@ const required = (value) => {
   }
 };
 
-function Login()  {
-  
+function Login() {
+
   let navigate = useNavigate();
 
   const form = useRef();
@@ -53,95 +53,92 @@ function Login()  {
 
     if (checkBtn.current.context._errors.length === 0) {
 
-      dispatch(login({username, password}))
-      .then(() => {
+      dispatch(login({ username, password }))
+        .unwrap()
+        .then(() => {
+
           const user = JSON.parse(localStorage.getItem("user"));
-          console.log(user);
+
           if (user.roles.includes("ADMIN")) {
             navigate("/admin/team");
             window.location.reload();
+
           } else if (user.roles.includes("OWNER")) {
             navigate("/owner/owner-page");
             window.location.reload();
+
           }
           else {
             navigate("/home")
             window.location.reload();
 
           }
-        },
-        (error) => {
+        }, (error) => {
           setLoading(false);
-          setMessage("Invalid Username or Password!!!!!!");
-        }
-      );
+          setMessage("Invalid UserName or Password!!!");
+        });
     } else {
       setLoading(false);
     }
   };
 
-  console.log(message)
 
   return (
-    <div className="container-fluid" id="login-body">
-      <div className="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card border-0 shadow rounded-3 my-5" id='card'>
+            <div class="card-body p-4 p-sm-5">
 
-      <div className="col-md-3"></div>
+              <h3 className="text-center"><b>Log-In</b></h3>
 
-   
-    <div className="col-md-6">
-      <div>
-        <div className="card card-container" id="card">
-          <h3 className="text-center"><b>Login Form</b></h3>
+              <Form onSubmit={handleLogin} ref={form}>
+                <div className="form-group">
+                  <label htmlFor="username">Username</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={username}
+                    onChange={onChangeUsername}
+                    validations={[required]}
+                  />
+                </div>
 
-          <Form onSubmit={handleLogin} ref={form}>
-            <div className="form-group">
-              <label  htmlFor="username"><b>Username : </b></label>
-              <Input
-                type="text"
-                className="form-control"
-                name="username"
-                value={username}
-                onChange={onChangeUsername}
-                validations={[required]}
-              />
-            </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <Input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={password}
+                    onChange={onChangePassword}
+                    validations={[required]}
+                  />
+                </div>
 
-            <div className="form-group">
-              <label htmlFor="password"><b>Password : </b></label>
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={password}
-                onChange={onChangePassword}
-                validations={[required]}
-              />
-            </div>
-            <br />
-            <div className="form-group">
-              <button className="btn btn-primary btn-block" disabled={loading}>
-                {loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
+                <div className="form-group">
+                  <button className="btn btn-primary btn-block m-2" disabled={loading}>
+                    {loading && (
+                      <span className="spinner-border spinner-border-sm"></span>
+                    )}
+                    <span>Login</span>
+                  </button>
+                </div>
+
+                {message && (
+                  <div className="form-group">
+                    <div className="alert alert-danger" role="alert">
+                      {message}
+                    </div>
+                  </div>
                 )}
-                <span>Log-In</span>
-              </button>
+                <CheckButton style={{ display: "none" }} ref={checkBtn} />
+              </Form>
             </div>
-
-            {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
-              </div>
-            </div>
-          )}
-            <CheckButton style={{ display: "none" }} ref={checkBtn} />
-          </Form>
+          </div>
         </div>
       </div>
-    </div>
-    <div className="col-md-3"></div>
-    </div>
     </div>
   );
 };

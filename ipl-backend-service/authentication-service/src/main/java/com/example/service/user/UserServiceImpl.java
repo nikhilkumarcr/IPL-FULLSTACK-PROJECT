@@ -22,9 +22,7 @@ import java.util.Set;
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final RoleService roleService;
-
     private final UserRepository userRepository;
-
     @Autowired
     private final PasswordEncoder encoder;
 
