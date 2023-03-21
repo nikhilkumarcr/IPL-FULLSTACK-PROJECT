@@ -17,7 +17,6 @@ public class JwtUtils {
     @Value("${ipl-app.app.jwtSecret}")
     private String jwtSecret;
 
-
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();

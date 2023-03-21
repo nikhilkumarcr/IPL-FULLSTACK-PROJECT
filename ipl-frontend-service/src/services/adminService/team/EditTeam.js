@@ -28,9 +28,13 @@ export default function EditTeam() {
       
         setTeam({...team,[e.target.name] :e.target.value})
     }
+
     const onSubmit= async (e)=>{
+
         e.preventDefault()
+
         dispatch(updateTeam(team))
+        
         navigate('/admin/team')
     } 
 
@@ -50,11 +54,16 @@ export default function EditTeam() {
         <div className='card-body'>
            <div className="form-group">
               <label><b>Team Name : </b></label>
-              <input type="text" className="form-control" value={team.teamName} name='teamName' onChange={(e) => onInputChange(e)} />
+              <input type="text" 
+              className="form-control" 
+              value={team.teamName} 
+              name='teamName' 
+              onChange={(e) => onInputChange(e)} />
            </div>
            <div className="form-group">
               <label><b>City : </b></label>
-              <input type="text" className="form-control" value={team.city} name='city' onChange={(e) => onInputChange(e)} />
+              <input type="text" 
+              className="form-control" value={team.city} name='city' onChange={(e) => onInputChange(e)} />
            </div>
            <div className="form-group">
               <label><b>State : </b></label>

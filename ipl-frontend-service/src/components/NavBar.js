@@ -32,23 +32,39 @@ export const NavBar = () => {
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
 
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
                 <Link to={"/home"} className="navbar-brand">
                     <img src='https://www.jagranimages.com/images/newimg/21082020/21_08_2020-ipl_logo_20650553.jpg' alt='ipl-logo' id='img' />
                 </Link>
 
-                <div className="navbar-nav mr-auto">
-                    <li className="nav-item">
-                        <Link to={"/home"} className="nav-link">
-                            <b>Indian Premier League</b>
-                        </Link>
-                    </li>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav mr-auto">
+                        <>
+                            <li className="nav-item">
+                                <Link to={"/home"} className="nav-link">
+                                    <b>Indian Premier League</b>
+                                </Link>
+                            </li>
 
+                        </>
+                    </ul>
                 </div>
 
                 {currentUser ? (
-                    <div className="navbar-nav ml-auto">
+                   <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link  className="nav-link">
+                            <Link className="nav-link">
                                 <div style={{ textTransform: 'uppercase' }} >
                                     <b>{currentUser.username}</b>
                                 </div>
@@ -59,17 +75,21 @@ export const NavBar = () => {
                                 <b>Log-Out</b>
                             </a>
                         </li>
-                    </div>
+
+                        </ul>
+                   
                 ) : (
-                    <div className="navbar-nav ml-auto">
+                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <Link to={"/login"} className="nav-link" >
                                 <b>Log-in</b>
                             </Link>
                         </li>
-                    </div>
+                    </ul>
                 )}
             </nav>
+
+
         </div>
     );
 
