@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.entity.Player;
 import com.example.entity.Team;
-import com.example.exceptionHandler.ExceptionErrorHandler;
+import com.example.exceptions.PlayerNotFoundException;
 import com.example.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +16,19 @@ import java.util.List;
 @RequestMapping("/api/owner/")
 @RequiredArgsConstructor
 public class OwnerController {
-
     @Autowired
     private final PlayerService playerService;
 
     @GetMapping("/view-players/{teamId}")
-    public ResponseEntity<?> viewPlayerByOwnerId(@PathVariable Integer teamId){
-        try {
+    public ResponseEntity<List<Player>> viewPlayerByOwnerId(@PathVariable Integer teamId)  {
+
             return new ResponseEntity<List<Player>>(playerService.getAllPlayer(teamId), HttpStatus.OK);
-        }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        } catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
+
     }
 
 
     @PostMapping("/add-player/{teamId}/{playerId}")
-    public ResponseEntity<?> addPlayerToTeam(@PathVariable Integer teamId, @PathVariable Integer playerId){
-        try {
+    public ResponseEntity<String> addPlayerToTeam(@PathVariable Integer teamId, @PathVariable Integer playerId) throws  PlayerNotFoundException {
 
             Team team = new Team();
 
@@ -49,20 +41,12 @@ public class OwnerController {
             playerService.addPlayer(player);
 
             return new ResponseEntity<String>("Player added successfully !!!",HttpStatus.OK);
-        } catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
+
     }
 
 
     @DeleteMapping("/delete-player/{playerId}")
-    public ResponseEntity<?> deletePlayerFromTeam(@PathVariable Integer playerId){
-
-        try {
+    public ResponseEntity<String> deletePlayerFromTeam(@PathVariable Integer playerId) throws  PlayerNotFoundException {
 
             Player player = playerService.getPlayerById(playerId);
             player.setAvailable(true);
@@ -70,13 +54,7 @@ public class OwnerController {
             playerService.addPlayer(player);
             return new ResponseEntity<String>("Player Removed from Team !!!",HttpStatus.OK);
 
-        }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        } catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Owner Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
+
     }
 
 

@@ -44,6 +44,7 @@ export default function AddTeam() {
       dispatch(addTeam(team))
 
       navigate('/admin/team')
+      window.location.reload(false)
    }
 
 

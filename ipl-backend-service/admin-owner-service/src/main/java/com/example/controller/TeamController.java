@@ -3,7 +3,8 @@ package com.example.controller;
 import com.example.dto.*;
 import com.example.entity.Player;
 import com.example.entity.Team;
-import com.example.exceptionHandler.ExceptionErrorHandler;
+import com.example.exceptions.PlayerNotFoundException;
+import com.example.exceptions.TeamNotFoundException;
 import com.example.service.player.PlayerService;
 import com.example.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +30,8 @@ public class TeamController {
     private final RestTemplate restTemplate;
 
     @GetMapping("/view-teams")
-    public ResponseEntity<?> viewTeams(){
+    public ResponseEntity<List<TeamResponse>> viewTeams() throws TeamNotFoundException {
 
-        try {
             List<Team> iplTeams = teamService.viewTeams();
             List<TeamResponse> teamResponses = iplTeams
                     .stream()
@@ -39,18 +39,10 @@ public class TeamController {
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.OK).body(teamResponses);
 
-        }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
     }
     @PostMapping("/add-team")
-    public ResponseEntity<?>  addTeam(@RequestBody TeamRequest teamRequest){
+    public ResponseEntity<Team>  addTeam(@RequestBody TeamRequest teamRequest) throws TeamNotFoundException {
 
-        try {
             Team team = new Team();
 
             team.setTeamName(teamRequest.getTeamName());
@@ -72,21 +64,10 @@ public class TeamController {
 
             return new ResponseEntity<Team>(team, HttpStatus.CREATED);
 
-        }catch (ExceptionErrorHandler e){
-
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
     }
 
      @DeleteMapping("/delete-team/{teamId}")
-    public ResponseEntity<?> deleteTeam(@PathVariable Integer teamId){
-
-        try {
+    public ResponseEntity<String> deleteTeam(@PathVariable Integer teamId) throws  PlayerNotFoundException {
 
             List<Player> players = playerService.getAllPlayer(teamId);
 
@@ -97,46 +78,33 @@ public class TeamController {
 
             teamService.deleteTeam(teamId);
             return new ResponseEntity<String>("Team Removed !!!",HttpStatus.OK);
-        }catch (ExceptionErrorHandler e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
     }
 
 
     @GetMapping("/get-team/{teamId}")
-    public ResponseEntity<?> getTeamDetails(@PathVariable Integer teamId){
+    public ResponseEntity<TeamResponse> getTeamDetails(@PathVariable Integer teamId)  {
 
-        try {
             Team team = teamService.getTeamById(teamId);
 
             TeamResponse teamResponse = new TeamResponse();
+
             teamResponse.setTeamId(team.getTeamId());
             teamResponse.setTeamName(team.getTeamName());
+            teamResponse.setOwnerName(team.getOwnerName());
+            teamResponse.setEmailId(team.getEmailId());
             teamResponse.setCity(team.getCity());
             teamResponse.setState(team.getState());
             teamResponse.setTeamUrl(team.getTeamUrl());
+
             return ResponseEntity.status(HttpStatus.OK).body(teamResponse);
-        }catch (ExceptionErrorHandler e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( "Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PostMapping("/update-team/{teamId}")
-    public ResponseEntity<?> updateTeam(@RequestBody TeamRequest teamRequest, @PathVariable Integer teamId){
+    public ResponseEntity<String> updateTeam(@RequestBody TeamRequest teamRequest, @PathVariable Integer teamId) throws TeamNotFoundException {
 
-        try {
             Team team = teamService.getTeamById(teamId);
 
             team.setTeamName(teamRequest.getTeamName());
@@ -147,22 +115,12 @@ public class TeamController {
             teamService.addTeam(team);
 
             return ResponseEntity.status(HttpStatus.OK).body("Team Details Updated!!!");
-        }catch (ExceptionErrorHandler e){
 
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
     }
 
 
     @GetMapping("/get-teamId/{ownerName}")
-    public ResponseEntity<?> getTeamId(@PathVariable String ownerName){
-
-        try {
+    public ResponseEntity<TeamDetails> getTeamId(@PathVariable String ownerName)  {
 
             Team team = teamService.getTeamId(ownerName);
             TeamDetails teamDetails = new TeamDetails();
@@ -171,13 +129,6 @@ public class TeamController {
 
             return ResponseEntity.status(HttpStatus.OK).body(teamDetails);
 
-        }catch (ExceptionErrorHandler e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler( e.getErrorMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-            ExceptionErrorHandler ex = new ExceptionErrorHandler("Error in Team Controller !!!" + e.getMessage());
-            return new ResponseEntity<String>(ex.getErrorMessage(),HttpStatus.BAD_REQUEST);
-        }
     }
 
 }

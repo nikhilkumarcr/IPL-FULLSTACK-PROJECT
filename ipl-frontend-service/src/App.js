@@ -5,7 +5,6 @@ import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import { NavBar } from './components/NavBar';
-// import Admin from './services/adminService/Admin';
 import Owner from './services/ownerService/owner';
 import Team from './services/adminService/team/team';
 import AddTeam from './services/adminService/team/addTeam';
@@ -16,7 +15,6 @@ import EditPlayer from './services/adminService/player/editPlayer';
 import OwnerTeam from './services/ownerService/ownerTeam';
 import OwnerAddPlayer from './services/ownerService/ownerAddPlayer';
 import AnotherTeamView from './services/ownerService/anotherTeamView';
-// import OwnerId from './services/ownerService/OwnerId';
 import AdminRoutes from './services/adminService/adminRoutes';
 import OwnerRoutes from './services/ownerService/ownerRoutes';
 
@@ -26,7 +24,6 @@ function App() {
     <div className="App">
       
       <NavBar />
-
 
       <div className='container-fluid'>
         <Routes>
