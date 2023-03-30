@@ -67,7 +67,7 @@ public class TeamController {
     }
 
      @DeleteMapping("/delete-team/{teamId}")
-    public ResponseEntity<String> deleteTeam(@PathVariable Integer teamId) throws  PlayerNotFoundException {
+     public ResponseEntity<String> deleteTeam(@PathVariable Integer teamId) throws  PlayerNotFoundException {
 
             List<Player> players = playerService.getAllPlayer(teamId);
 

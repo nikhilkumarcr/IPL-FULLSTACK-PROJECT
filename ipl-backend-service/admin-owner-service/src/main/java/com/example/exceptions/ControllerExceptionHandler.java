@@ -29,7 +29,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException ex){
 
-        return  new ResponseEntity<>("No Data present in the given Id !!! Enter valid Id !!!",HttpStatus.NOT_FOUND);
+        return  new ResponseEntity<String>("No Data present in the given Id !!! Enter valid Id !!!",HttpStatus.NOT_FOUND);
     }
 
 }
